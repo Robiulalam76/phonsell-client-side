@@ -1,11 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 const Header = () => {
     const [open, setOpen] = useState(false)
 
     return (
-        <nav className="bg-white md:px-8 py-6">
+        <nav className="bg-white dark:bg-gray-900 md:px-8 py-6">
             <div className='flex justify-between items-center mx-4'>
                 <div>
                     <Link to='/' className='block ml-0 font-bold md:hidden'>
@@ -24,7 +24,7 @@ const Header = () => {
                     }
                 </div>
             </div>
-            <div className={`bg-white flex z-50 flex-col items-start justify-start mt-none md:flex-row md:items-center h-full md:h-fit md:w-full md:flex md:justify-end absolute md:static duration-500 ease-in
+            <div className={`bg-white dark:bg-gray-900 dark:text-white flex z-50 flex-col items-start justify-start mt-none md:flex-row md:items-center h-full md:h-fit md:w-full md:flex md:justify-end absolute md:static duration-500 ease-in
              text-blue-900 uppercase
             ${open ? 'left-[0px] pl-8 pr-20 pt-5' : '-left-[300px] md:left-0 pt-5 md:pt-0'}`}>
 
