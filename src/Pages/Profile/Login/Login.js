@@ -17,8 +17,8 @@ const Login = () => {
 
     }
     return (
-        <section className="bg-white dark:bg-gray-900 pb-8">
-            <div className="w-[400px] flex items-center justify-center min-h-screen px-6 mx-auto shadow-md shadow-gray-600">
+        <section className="bg-white dark:bg-gray-900 py-12">
+            <div className="w-[400px] flex items-center justify-center p-6 mx-auto shadow-md shadow-gray-600">
 
                 <form onSubmit={handleSubmit(handleLogin)} className="w-full max-w-md">
                     <h1 className='text-blue-900 dark:text-white text-2xl font-bold text-center'>Login</h1>

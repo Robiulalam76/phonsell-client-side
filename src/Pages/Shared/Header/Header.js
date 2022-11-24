@@ -14,7 +14,7 @@ const Header = () => {
         <nav className="bg-white dark:bg-gray-900 md:px-8 py-6">
             <div className='flex justify-between items-center mx-4'>
                 <div>
-                    <Link to='/' className='block ml-0 font-bold md:hidden'>
+                    <Link to='/' className='block ml-0 dark:text-white font-bold md:hidden'>
                         PHONSELL
                     </Link>
                 </div>
