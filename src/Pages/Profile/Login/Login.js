@@ -1,17 +1,21 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
 
 const Login = () => {
     const { user, loading, loginWithEmailPassword } = useContext(AuthContext)
     const { register, handleSubmit, formState: { errors } } = useForm()
+    const location = useLocation()
+    const navigate = useNavigate()
+    const from = location.state?.from?.pathname || '/'
 
     const handleLogin = data => {
         loginWithEmailPassword(data.email, data.password)
             .then(result => {
                 const user = result.user
                 console.log(user);
+                navigate(from, { replace: true })
             })
             .catch(error => console.error(error))
 

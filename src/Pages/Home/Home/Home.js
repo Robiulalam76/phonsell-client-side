@@ -1,6 +1,6 @@
 import React from 'react';
-import SimpleSlider from './Banner/Banner';
-import Categories from './Categories/Categories';
+import SimpleSlider from '../Banner/Banner';
+import Categories from '../Categories/Categories';
 
 const Home = () => {
     return (

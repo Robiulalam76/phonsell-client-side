@@ -1,11 +1,14 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
 
 const Signup = () => {
     const { user, loading, signupWithEmailPassword, updateUser } = useContext(AuthContext)
     const { register, handleSubmit, formState: { errors } } = useForm()
+    const location = useLocation()
+    const navigate = useNavigate()
+    const from = location.state?.from?.pathname || '/'
 
     const handleSignup = data => {
         // console.log(data.email, data.password);
@@ -63,6 +66,10 @@ const Signup = () => {
             displayName: name, photoURL: image
         }
         updateUser(profile)
+            .then(result => {
+                navigate(from, { replace: true })
+            })
+            .catch(error => console.log(error))
     }
 
     return (

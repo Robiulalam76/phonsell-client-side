@@ -11,7 +11,7 @@ const CategoryCard = ({ category }) => {
                 </div>
                 <div className="flex justify-between items-center pb-4 border-bottom">
                     <div className="flex items-center">
-                        <Link to={`/categories/${category.categoryId}`} className="mb-0 hover:text-orange-700 capitalize dark:text-gray-100 font-bold text-2xl">{category.name}</Link>
+                        <Link to={`/categories/${category.categoryId}`} className="mb-0 hover:text-orange-700 capitalize dark:text-gray-100 font-bold text-2xl">{category.brand}</Link>
                     </div>
                     <Link to={`/categories/${category.categoryId}`} className='font-bold hover:text-orange-700'>See All</Link>
                 </div>
