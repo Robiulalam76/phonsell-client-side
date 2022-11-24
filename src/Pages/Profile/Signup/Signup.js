@@ -1,16 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
+import { Result } from 'postcss';
 const Signup = () => {
+    const { user, loading, signupWithEmailPassword, updateUser } = useContext(AuthContext)
     const { register, handleSubmit, formState: { errors } } = useForm()
 
     const handleSignup = data => {
-        saveUser(data.image[0])
+        // console.log(data.email, data.password);
+        signupWithEmailPassword(data.email, data.password)
+            .then(result => {
+                const user = result.user
+                // console.log(user);
+                saveUser(data.name, data.email, data.role, data.image[0])
+            })
+            .catch(error => console.error(error))
 
     }
 
+    console.log(user);
+
     // image hosting to imageBB
-    const saveUser = (image) => {
+    const saveUser = (name, email, role, image) => {
         const formData = new FormData()
         formData.append('image', image)
         const uri = `https://api.imgbb.com/1/upload?key=cb1d02f9d4fd8fd69411c15e571d60bf`
@@ -21,8 +33,38 @@ const Signup = () => {
         })
             .then(res => res.json())
             .then(imgData => {
-                console.log(imgData);
+                const image = imgData.data.url
+                if (imgData.success) {
+                    const user = {
+                        name,
+                        email,
+                        role,
+                        image
+                    }
+                    fetch('http://localhost:5000/users', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(user)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data);
+                        })
+                }
+                updateProfile(name, image)
             })
+    }
+
+
+    // update user profile
+    const updateProfile = (name, image) => {
+        console.log(name, image);
+        const profile = {
+            displayName: name, photoURL: image
+        }
+        updateUser(profile)
     }
 
     return (
