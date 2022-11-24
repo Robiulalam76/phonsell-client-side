@@ -1,7 +1,26 @@
 import React from 'react';
 
 const ProductCard = ({ product }) => {
-    const { name, image, price } = product
+    const { _id, name, image, price } = product
+    const handleWishlist = () => {
+        const wishlist = {
+            serviceId: _id,
+            categoryId,
+            brand,
+            name,
+            image,
+            price,
+            location,
+            sold,
+            condition,
+            used,
+            orginalPrice,
+            Model,
+            authenticity,
+            features,
+            description,
+        }
+    }
     return (
         <div className="rounded-md shadow-md sm:w-96 dark:bg-gray-900 dark:text-gray-100 mx-auto">
             <div className="flex items-center justify-between p-3">

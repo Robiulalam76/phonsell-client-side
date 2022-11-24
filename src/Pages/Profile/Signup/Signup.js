@@ -40,6 +40,7 @@ const Signup = () => {
                         name,
                         email,
                         role,
+                        verify: false,
                         image
                     }
                     fetch('http://localhost:5000/users', {
