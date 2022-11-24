@@ -3,7 +3,7 @@ import { useLoaderData } from 'react-router-dom';
 import ProductCard from '../ProductCard/ProductCard';
 
 const Products = () => {
-    const category = useLoaderData()
+    const products = useLoaderData()
     const [searchValue, setSearchValue] = useState('')
     const search = useRef()
     const handleSearch = () => {
@@ -28,7 +28,7 @@ const Products = () => {
 
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12'>
                 {
-                    category.products.map((product, i) => <ProductCard
+                    products.map((product, i) => <ProductCard
                         key={i}
                         product={product}
                     ></ProductCard>)
