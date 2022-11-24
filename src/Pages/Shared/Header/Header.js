@@ -62,12 +62,20 @@ const Header = () => {
                                     'text-orange-600 mt-3 md:mt-0 mr-6' : 'mr-6 mt-3 md:mt-0'} >Dashboard</NavLink>
                             <NavLink to='/Login'
                                 onClick={() => setOpen(false)} className={({ isActive }) => isActive ?
-                                    'text-orange-600 mt-3 md:mt-0 mr-6' : 'mr-6 mt-3 md:mt-0'} ><button onClick={() => handleLogout()} >LOG OUT</button></NavLink>
+                                    'text-orange-600 mt-3 md:mt-0 mr-6' : 'mr-6 mt-3 md:mt-0'} >
+                                <button className='bg-blue-600 hover:bg-blue-700 px-3 rounded-md py-1' onClick={() => handleLogout()} >LOG OUT</button></NavLink>
+                            <NavLink
+                                onClick={() => setOpen(false)} className={({ isActive }) => isActive ?
+                                    'text-orange-600 mt-3 md:mt-0 mr-6' : 'mr-6 mt-3 md:mt-0'} >
+                                <img className='w-10 border-2 border-blue-800 rounded-full' src={user?.photoURL} alt="" />
+                            </NavLink>
                         </>
                         :
                         <NavLink to='/Login'
                             onClick={() => setOpen(false)} className={({ isActive }) => isActive ?
-                                'text-orange-600 mt-3 md:mt-0 mr-6' : 'mr-6 mt-3 md:mt-0'} >Login</NavLink>
+                                'text-orange-600 mt-3 md:mt-0 mr-6' : 'mr-6 mt-3 md:mt-0'} >
+                            <button className='bg-blue-600 hover:bg-blue-700 px-3 rounded-md py-1 text-white'>LOGIN</button>
+                        </NavLink>
                 }
 
             </div>

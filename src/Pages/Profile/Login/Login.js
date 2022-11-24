@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
 
@@ -15,10 +16,10 @@ const Login = () => {
             .then(result => {
                 const user = result.user
                 console.log(user);
+                toast.success('User Login Successfully')
                 navigate(from, { replace: true })
             })
             .catch(error => console.error(error))
-
     }
     return (
         <section className="bg-white dark:bg-gray-900 py-12">

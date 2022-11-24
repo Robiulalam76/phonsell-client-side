@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
+import toast from 'react-hot-toast';
 
 const Signup = () => {
     const { user, loading, signupWithEmailPassword, updateUser } = useContext(AuthContext)
@@ -68,6 +69,7 @@ const Signup = () => {
         }
         updateUser(profile)
             .then(result => {
+                toast.success('User Signup Successfully')
                 navigate(from, { replace: true })
             })
             .catch(error => console.log(error))
