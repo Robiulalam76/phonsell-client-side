@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
 
 const Header = () => {
+    const { user, logout } = useContext(AuthContext)
     const [open, setOpen] = useState(false)
+
+    const handleLogout = () => {
+        logout()
+    }
 
     return (
         <nav className="bg-white dark:bg-gray-900 md:px-8 py-6">
@@ -47,23 +53,22 @@ const Header = () => {
                 <NavLink to='/Appointment'
                     onClick={() => setOpen(false)} className={({ isActive }) => isActive ?
                         'text-orange-600 mt-3 md:mt-0 mr-6' : 'mr-6 mt-3 md:mt-0'} >Blogs</NavLink>
-                <NavLink to='/Reviews'
-                    onClick={() => setOpen(false)} className={({ isActive }) => isActive ?
-                        'text-orange-600 mt-3 md:mt-0 mr-6' : 'mr-6 mt-3 md:mt-0'} >Reviews</NavLink>
 
-
-
-                <NavLink to='/dashboard'
-                    onClick={() => setOpen(false)} className={({ isActive }) => isActive ?
-                        'text-orange-600 mt-3 md:mt-0 mr-6' : 'mr-6 mt-3 md:mt-0'} >Dashboard</NavLink>
-                <NavLink to='/Login'
-                    onClick={() => setOpen(false)} className={({ isActive }) => isActive ?
-                        'text-orange-600 mt-3 md:mt-0 mr-6' : 'mr-6 mt-3 md:mt-0'} ><button >LOG OUT</button></NavLink>
-
-
-                <NavLink to='/Login'
-                    onClick={() => setOpen(false)} className={({ isActive }) => isActive ?
-                        'text-orange-600 mt-3 md:mt-0 mr-6' : 'mr-6 mt-3 md:mt-0'} >Login</NavLink>
+                {
+                    user?.uid ?
+                        <>
+                            <NavLink to='/dashboard'
+                                onClick={() => setOpen(false)} className={({ isActive }) => isActive ?
+                                    'text-orange-600 mt-3 md:mt-0 mr-6' : 'mr-6 mt-3 md:mt-0'} >Dashboard</NavLink>
+                            <NavLink to='/Login'
+                                onClick={() => setOpen(false)} className={({ isActive }) => isActive ?
+                                    'text-orange-600 mt-3 md:mt-0 mr-6' : 'mr-6 mt-3 md:mt-0'} ><button onClick={() => handleLogout()} >LOG OUT</button></NavLink>
+                        </>
+                        :
+                        <NavLink to='/Login'
+                            onClick={() => setOpen(false)} className={({ isActive }) => isActive ?
+                                'text-orange-600 mt-3 md:mt-0 mr-6' : 'mr-6 mt-3 md:mt-0'} >Login</NavLink>
+                }
 
             </div>
 

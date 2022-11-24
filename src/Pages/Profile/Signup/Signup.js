@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
-import { Result } from 'postcss';
+
 const Signup = () => {
     const { user, loading, signupWithEmailPassword, updateUser } = useContext(AuthContext)
     const { register, handleSubmit, formState: { errors } } = useForm()
@@ -18,8 +18,6 @@ const Signup = () => {
             .catch(error => console.error(error))
 
     }
-
-    console.log(user);
 
     // image hosting to imageBB
     const saveUser = (name, email, role, image) => {
