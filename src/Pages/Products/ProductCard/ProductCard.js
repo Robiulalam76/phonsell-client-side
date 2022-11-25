@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 
 const ProductCard = ({ product }) => {
-    const { _id, seller, verify, email, categoryId, brand, name, image, price, location, sold, condition, used, orginalPrice, Model, authenticity, features, description, } = product;
+    const { _id, time, seller, verify, email, categoryId, brand, name, image, price, location, sold, condition, used, originalPrice, Model, authenticity, features, description, } = product;
 
 
     const { data: wishlist = [], refetch } = useQuery({
@@ -31,7 +31,7 @@ const ProductCard = ({ product }) => {
             sold,
             condition,
             used,
-            orginalPrice,
+            originalPrice,
             Model,
             authenticity,
             features,
@@ -79,13 +79,7 @@ const ProductCard = ({ product }) => {
                         <span className="inline-block text-xs leading-none dark:text-gray-400">{email}</span>
                     </div>
                 </div>
-                <button title="Open options" type="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-5 h-5 fill-current">
-                        <path d="M256,144a64,64,0,1,0-64-64A64.072,64.072,0,0,0,256,144Zm0-96a32,32,0,1,1-32,32A32.036,32.036,0,0,1,256,48Z"></path>
-                        <path d="M256,368a64,64,0,1,0,64,64A64.072,64.072,0,0,0,256,368Zm0,96a32,32,0,1,1,32-32A32.036,32.036,0,0,1,256,464Z"></path>
-                        <path d="M256,192a64,64,0,1,0,64,64A64.072,64.072,0,0,0,256,192Zm0,96a32,32,0,1,1,32-32A32.036,32.036,0,0,1,256,288Z"></path>
-                    </svg>
-                </button>
+                <small>{time}</small>
             </div>
             <img src={image} alt="" className="object-cover object-center w-full h-48 dark:bg-gray-500" />
             <div className="p-3">
@@ -117,7 +111,7 @@ const ProductCard = ({ product }) => {
                 <div className="flex items-center dark:text-white justify-between pt-3 pb-1">
                     <div className='flex flex-col'>
                         <h1 className='font-bold'>Price: ${price}</h1>
-                        <small>Official: ${orginalPrice}</small>
+                        <small>Original: ${originalPrice}</small>
                         <p>used: {used}</p>
                         <p>location: {location}</p>
                     </div>

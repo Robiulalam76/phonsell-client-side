@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
 
 const AddProduct = () => {
     const { user, loading } = useContext(AuthContext)
+    const [userInfo, serUserInfo] = useState({})
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
 
     const getTime = (date) => {
@@ -20,48 +21,69 @@ const AddProduct = () => {
     }
 
 
+    useEffect(() => {
+        fetch(`http://localhost:5000/users?email=${user?.email}`)
+            .then(res => res.json())
+            .then(data => {
+                serUserInfo(data)
+            })
+    }, [user?.email])
+
     // Product add function
     const handleAddProduct = (data) => {
-        console.log(data);
-        const product = {
-            name: data.name,
-            brand: data.brand,
-            price: data.price,
-            orginalPrice: data.originalPrice,
-            categoryId: data.categoryId,
-            Model: data.model,
-            condition: data.condition,
-            used: data.used,
-            location: data.location,
-            authenticity: data.authenticity,
-            features: data.features,
-            description: data.description,
-            time: getTime(new Date),
 
-            // image: data.image,
-            // email: data.email,
-            // sold: data.sold,
-            // verify: data.verify,
-            // seller: data.seller,
-        }
+        const image = data.image[0]
+        const formData = new FormData()
+        formData.append('image', image)
+        const uri = `https://api.imgbb.com/1/upload?key=cb1d02f9d4fd8fd69411c15e571d60bf`
+        fetch(uri, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(imgData => {
+                const image = imgData.data.url
+                if (imgData.success) {
+                    const product = {
+                        name: data.name,
+                        brand: data.brand,
+                        price: data.price,
+                        orginalPrice: data.originalPrice,
+                        categoryId: data.categoryId,
+                        Model: data.model,
+                        condition: data.condition,
+                        used: data.used,
+                        location: data.location,
+                        authenticity: data.authenticity,
+                        features: data.features,
+                        description: data.description,
+                        time: getTime(new Date),
+                        sold: "Available",
+                        image: image,
+                        email: userInfo?.email,
+                        verify: userInfo?.verify,
+                        seller: userInfo?.name,
+                    }
 
-        console.log(product);
+                    console.log(product);
 
-        // fetch('', {
-        //     method: 'POST',
-        //     headers: {
-        //         'content-type': 'application/json'
-        //     },
-        //     body: JSON.stringify(product)
-        // })
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         console.log(data);
-        //         if (data.acknowledged) {
-        //             toast.success('Product Add Successfully')
-        //             reset()
-        //         }
-        //     })
+                    fetch('http://localhost:5000/products', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(product)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data);
+                            if (data.acknowledged) {
+                                toast.success('Product Add Successfully')
+                                reset()
+                            }
+                        })
+                }
+            })
     }
     return (
         <section className="bg-white dark:bg-gray-800 pb-12 px-6 w-full mx-auto">
