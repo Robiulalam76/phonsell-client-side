@@ -9,9 +9,9 @@ const DashboardLayout = () => {
     return (
         <div className=''>
             <Header></Header>
-            <div className='grid grid-cols-6'>
+            <div className='grid grid-cols-1'>
 
-                <div className={`col-span-1 z-50 absolute duration-500 ease-in ${open ? '' : '-left-[300px] lg:left-0'}`}>
+                <div className={`z-50 absolute duration-500 ease-in ${open ? '' : '-left-[300px] lg:left-0'}`}>
                     <div className="relative h-[1000px] p-3 space-y-2 dark:bg-gray-900 dark:text-gray-100">
                         <div className="flex items-center px-2 py-6 space-x-4">
                             <img src={user?.photoURL} alt="" className="w-12 h-12 rounded-full dark:bg-gray-500" />
@@ -47,7 +47,7 @@ const DashboardLayout = () => {
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-5 h-5 fill-current dark:text-gray-400">
                                             <path d="M453.122,79.012a128,128,0,0,0-181.087.068l-15.511,15.7L241.142,79.114l-.1-.1a128,128,0,0,0-181.02,0l-6.91,6.91a128,128,0,0,0,0,181.019L235.485,449.314l20.595,21.578.491-.492.533.533L276.4,450.574,460.032,266.94a128.147,128.147,0,0,0,0-181.019ZM437.4,244.313,256.571,425.146,75.738,244.313a96,96,0,0,1,0-135.764l6.911-6.91a96,96,0,0,1,135.713-.051l38.093,38.787,38.274-38.736a96,96,0,0,1,135.765,0l6.91,6.909A96.11,96.11,0,0,1,437.4,244.313Z"></path>
                                         </svg>
-                                        <Link to='/dashboard/addProduct'>My Wishlist</Link>
+                                        <Link to='/dashboard/my-wishlist'>My Wishlist</Link>
                                     </a>
                                 </li>
                                 <li>
@@ -91,7 +91,7 @@ const DashboardLayout = () => {
                         </div>
                     </div>
                 </div>
-                <div className='col-span-6 lg:col-span-5'>
+                <div className=''>
                     <div onClick={() => setOpen(!open)} className="w-10 lg:hidden ml-4 dark:bg-gray-800 text-white">
                         {
                             open ? <span>

@@ -48,9 +48,9 @@ const AddProduct = () => {
                         name: data.name,
                         brand: data.brand,
                         price: data.price,
-                        orginalPrice: data.originalPrice,
+                        originalPrice: data.originalPrice,
                         categoryId: data.categoryId,
-                        Model: data.model,
+                        model: data.model,
                         condition: data.condition,
                         used: data.used,
                         location: data.location,
@@ -97,7 +97,7 @@ const AddProduct = () => {
                             <div class="relative flex items-center mt-8 md:mt-0">
                                 <input
                                     {...register('name', { required: 'Name is Required' })}
-                                    type="text" name='name' class="block w-full py-3 text-gray-700 bg-white border rounded-md px-3 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Product Name" required />
+                                    type="text" name='name' class="block w-full py-3 text-gray-700 bg-white border rounded-md px-3 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Product Name" />
                             </div>
                             {errors.name && <p className='text-red-600'>{errors.name.message}</p>}
 
@@ -109,30 +109,30 @@ const AddProduct = () => {
                                     <select
                                         {...register('categoryId', { required: 'category is Required' })}
                                         name='categoryId'
-                                        id="categoryId" class="block w-full px-3 py-3 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-400 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40">
-                                        {/* <option  value="1">Apple</option> */}
+                                        id="categoryId" class="block w-full px-3 py-3 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-400 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" required>
+                                        {/* <option disabled selected>Category</option> */}
                                         <option value="1">Apple</option>
                                         <option value="2">Xiaomi</option>
                                         <option value="3">Samsung</option>
                                     </select>
+                                    {errors.categoryId && <p className='text-red-600'>{errors.categoryId.message}</p>}
                                 </div>
-                                {errors.categoryId && <p className='text-red-600'>{errors.categoryId.message}</p>}
 
                                 <div className="relative ">
                                     <input
                                         {...register('price', { required: 'price is Required' })}
-                                        type="number" name='price' className="block w-full py-3 text-gray-700 bg-white border rounded-md px-3 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="price" required />
+                                        type="number" name='price' className="block w-full py-3 text-gray-700 bg-white border rounded-md px-3 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="price" />
+                                    {errors.price && <p className='text-red-600'>{errors.price.message}</p>}
                                 </div>
-                                {errors.price && <p className='text-red-600'>{errors.price.message}</p>}
 
                                 <div className="relative">
                                     <input
                                         {...register('originalPrice', {
-                                            required: 'Original Price is Required',
+                                            required: 'Price is Required',
                                         })}
-                                        type="number" name='originalPrice' className="block w-full px-3 py-3 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="originalPrice" required />
+                                        type="number" name='originalPrice' className="block w-full px-3 py-3 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="original Price" />
+                                    {errors.originalPrice && <p className='text-red-600'>{errors.originalPrice.message}</p>}
                                 </div>
-                                {errors.originalPrice && <p className='text-red-600'>{errors.originalPrice.message}</p>}
                             </div>
 
 
@@ -140,9 +140,9 @@ const AddProduct = () => {
                                 <div className="relative">
                                     <input
                                         {...register('brand', { required: 'Brand Name is Required' })}
-                                        type="text" name='brand' className="block w-full py-3 text-gray-700 bg-white border rounded-md px-3 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Brand Name" required />
+                                        type="text" name='brand' className="block w-full py-3 text-gray-700 bg-white border rounded-md px-3 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Brand Name" />
+                                    {errors.brand && <p className='text-red-600'>{errors.brand.message}</p>}
                                 </div>
-                                {errors.brand && <p className='text-red-600'>{errors.brand.message}</p>}
 
 
                                 <div className="relative">
@@ -150,9 +150,9 @@ const AddProduct = () => {
                                         {...register('model', {
                                             required: 'Model Name is Required',
                                         })}
-                                        type="text" name='model' className="block w-full px-3 py-3 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Model Name" required />
+                                        type="text" name='model' className="block w-full px-3 py-3 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Model Name" />
+                                    {errors.model && <p className='text-red-600'>{errors.model.message}</p>}
                                 </div>
-                                {errors.model && <p className='text-red-600'>{errors.model.message}</p>}
                             </div>
 
 
@@ -162,9 +162,9 @@ const AddProduct = () => {
                                         {...register('used', {
                                             required: 'used of time is Required',
                                         })}
-                                        type="text" name='used' className="block w-full px-3 py-3 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Used of Time" required />
+                                        type="text" name='used' className="block w-full px-3 py-3 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Used of Time" />
+                                    {errors.used && <p className='text-red-600'>{errors.used.message}</p>}
                                 </div>
-                                {errors.used && <p className='text-red-600'>{errors.used.message}</p>}
 
 
                                 <div className="relative">
@@ -172,11 +172,21 @@ const AddProduct = () => {
                                         {...register('location', {
                                             required: 'location is Required',
                                         })}
-                                        type="text" name='location' className="block w-full px-3 py-3 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="location" required />
+                                        type="text" name='location' className="block w-full px-3 py-3 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="location" />
+                                    {errors.location && <p className='text-red-600'>{errors.location.message}</p>}
                                 </div>
-                                {errors.location && <p className='text-red-600'>{errors.location.message}</p>}
+
+
                             </div>
 
+                            <div className="relative flex items-center mt-4">
+                                <input
+                                    {...register('number', {
+                                        required: 'phone number is Required',
+                                    })}
+                                    type="number" name='number' className="block w-full px-3 py-3 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Phone Number" />
+                            </div>
+                            {errors.number && <p className='text-red-600'>{errors.number.message}</p>}
 
                             <div className="relative flex items-center mt-4">
                                 <textarea
@@ -184,7 +194,7 @@ const AddProduct = () => {
                                         required: 'condition is Required',
                                     })}
                                     cols="30" rows="10"
-                                    type="text" name='condition' className="block w-full px-3 py-3 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 h-24 resize-none" placeholder="Product condition" required
+                                    type="text" name='condition' className="block w-full px-3 py-3 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 h-16 resize-none" placeholder="Product condition"
                                 ></textarea>
                             </div>
                             {errors.condition && <p className='text-red-600'>{errors.condition.message}</p>}
@@ -196,7 +206,7 @@ const AddProduct = () => {
                                         required: 'authenticity is Required',
                                     })}
                                     cols="30" rows="10"
-                                    type="text" name='authenticity' className="block w-full px-3 py-3 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 h-24 resize-none" placeholder="Product authenticity" required
+                                    type="text" name='authenticity' className="block w-full px-3 py-3 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 h-20 resize-none" placeholder="Product authenticity"
                                 ></textarea>
                             </div>
                             {errors.authenticity && <p className='text-red-600'>{errors.authenticity.message}</p>}
@@ -212,7 +222,7 @@ const AddProduct = () => {
                                         required: 'features is Required',
                                     })}
                                     cols="30" rows="10"
-                                    type="text" name='features' className="block w-full px-3 py-3 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 h-24 resize-none" placeholder="Product features" required
+                                    type="text" name='features' className="block w-full px-3 py-3 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 h-24 resize-none" placeholder="Product features"
                                 ></textarea>
                             </div>
                             {errors.features && <p className='text-red-600'>{errors.features.message}</p>}
@@ -225,7 +235,7 @@ const AddProduct = () => {
                                         required: 'description is Required',
                                     })}
                                     cols="30" rows="10"
-                                    type="text" name='description' className="block w-full px-3 py-3 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 min-h-44 " placeholder="Product description" required
+                                    type="text" name='description' className="block w-full px-3 py-3 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 min-h-44 " placeholder="Product description"
                                 ></textarea>
                             </div>
                             {errors.description && <p className='text-red-600'>{errors.description.message}</p>}
@@ -238,7 +248,7 @@ const AddProduct = () => {
 
                                 <input
                                     {...register('image', { required: 'User Image Required' })}
-                                    id="dropzone-file" name='image' type="file" className="dark:text-gray-400" required />
+                                    id="dropzone-file" name='image' type="file" className="dark:text-gray-400" />
                             </label>
                             {errors.image && <p className='text-red-600'>{errors.image.message}</p>}
                         </div>

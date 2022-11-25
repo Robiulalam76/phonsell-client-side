@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../../Layout/DashboardLayout";
 import Main from "../../Layout/Main";
 import AddProduct from "../../Pages/Dashboard/AddProduct/AddProduct";
+import MyWishlist from "../../Pages/Dashboard/MyWishlist/MyWishlist";
 import Home from "../../Pages/Home/Home/Home";
 import Products from "../../Pages/Products/Products/Products";
 import Login from "../../Pages/Profile/Login/Login";
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
         element: <PriveteRoute><DashboardLayout></DashboardLayout></PriveteRoute>,
         children: [
             { path: '/dashboard/addProduct', element: <PriveteRoute><AddProduct></AddProduct></PriveteRoute> },
+            { path: '/dashboard/my-wishlist', element: <PriveteRoute><MyWishlist></MyWishlist></PriveteRoute> },
         ]
     }
 ])

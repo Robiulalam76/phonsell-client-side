@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import { SyncLoader } from 'react-spinners';
 import CategoryCard from '../CategoryCard/CategoryCard';
 
 const Categories = () => {
@@ -11,6 +12,11 @@ const Categories = () => {
             return data
         }
     })
+
+
+    if (isLoading) {
+        return <div className='flex justify-center p-6'><SyncLoader color="#36d7b7" /></div>
+    }
 
     console.log(categories);
     return (

@@ -9,6 +9,7 @@ const Products = () => {
     const handleSearch = () => {
         setSearchValue(search.current.value)
     }
+    // console.log(searchValue);
 
 
     return (

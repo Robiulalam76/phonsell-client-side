@@ -2,11 +2,18 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import BookNowModal from './BookNowModal';
 
 const ProductCard = ({ product }) => {
     const { _id, time, seller, verify, email, categoryId, brand, name, image, price, location, sold, condition, used, originalPrice, Model, authenticity, features, description, } = product;
+    const [modalData, setModalData] = useState(null)
 
+    // order modal close 
+    const closeModal = (data) => {
+        setModalData(data)
+    }
 
+    // load wishlist
     const { data: wishlist = [], refetch } = useQuery({
         queryKey: ['wishlist'],
         queryFn: async () => {
@@ -19,6 +26,7 @@ const ProductCard = ({ product }) => {
     const wishlised = wishlist.find(w => w.serviceId === product._id)
 
 
+    // handle wishlist 
     const handleWishlist = () => {
         const wishlist = {
             serviceId: _id,
@@ -53,6 +61,7 @@ const ProductCard = ({ product }) => {
             })
     }
 
+    // remove wishlist
     const handleRemoveWishlist = (id) => {
         fetch(`http://localhost:5000/wishlist/${id}`, {
             method: 'DELETE',
@@ -108,21 +117,33 @@ const ProductCard = ({ product }) => {
                     </div>
 
                 </div>
-                <div className="flex items-center dark:text-white justify-between pt-3 pb-1">
+                <div className="flex items-center dark:text-white justify-start pt-3 pb-1">
                     <div className='flex flex-col'>
                         <h1 className='font-bold'>Price: ${price}</h1>
                         <small>Original: ${originalPrice}</small>
                         <p>used: {used}</p>
                         <p>location: {location}</p>
                     </div>
-                    <div>
-                        <Link>
-                            <button className='bg-blue-600 hover:bg-blue-700 px-3 rounded-md py-1'>See Details</button>
+
+                </div>
+                <div>
+                    <div className='flex items-center dark:text-white justify-between pt-3 pb-1'>
+                        <Link onClick={() => setModalData(product)}>
+                            <button className='bg-blue-600 hover:bg-blue-700 px-3 rounded-md py-1'>Book now</button>
+                        </Link>
+                        <Link className='dark:text-white hover:text-orange-600'>
+                            See Details
                         </Link>
                     </div>
                 </div>
-
             </div>
+            {
+                modalData &&
+                <BookNowModal
+                    modalData={modalData}
+                    closeModal={closeModal}
+                ></BookNowModal>
+            }
         </div>
 
     );
