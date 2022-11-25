@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
 
@@ -15,7 +16,9 @@ const BookNowModal = ({ modalData, closeModal }) => {
         const location = event.target.location.value
 
         const order = {
-            name, serviceId: _id, serviceName,
+            name,
+            serviceId: _id,
+            serviceName,
             email, number,
             location, price,
             brand, image,
@@ -25,7 +28,20 @@ const BookNowModal = ({ modalData, closeModal }) => {
             categoryId, condition,
             used, originalPrice, model, authenticity, features, description
         }
-        console.log(order);
+        fetch('http://localhost:5000/orders', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(order)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    toast.success(`${serviceName} Order Successfully`)
+                    closeModal(null)
+                }
+            })
     }
     return (
 
