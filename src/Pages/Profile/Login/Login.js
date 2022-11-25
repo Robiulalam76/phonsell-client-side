@@ -6,7 +6,7 @@ import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
 
 const Login = () => {
     const { user, loading, loginWithEmailPassword } = useContext(AuthContext)
-    const { register, handleSubmit, formState: { errors } } = useForm()
+    const { register, handleSubmit, reset, formState: { errors } } = useForm()
     const location = useLocation()
     const navigate = useNavigate()
     const from = location.state?.from?.pathname || '/'
@@ -17,6 +17,7 @@ const Login = () => {
                 const user = result.user
                 console.log(user);
                 toast.success('User Login Successfully')
+                reset()
                 navigate(from, { replace: true })
             })
             .catch(error => console.error(error))

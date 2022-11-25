@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 
 const Signup = () => {
     const { user, loading, signupWithEmailPassword, updateUser } = useContext(AuthContext)
-    const { register, handleSubmit, formState: { errors } } = useForm()
+    const { register, handleSubmit, reset, formState: { errors } } = useForm()
     const location = useLocation()
     const navigate = useNavigate()
     const from = location.state?.from?.pathname || '/'
@@ -70,6 +70,7 @@ const Signup = () => {
         updateUser(profile)
             .then(result => {
                 toast.success('User Signup Successfully')
+                reset()
                 navigate(from, { replace: true })
             })
             .catch(error => console.log(error))

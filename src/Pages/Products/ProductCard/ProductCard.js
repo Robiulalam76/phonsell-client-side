@@ -69,14 +69,13 @@ const ProductCard = ({ product }) => {
         <div className="rounded-md shadow-md sm:w-96 dark:bg-gray-900 dark:text-gray-100 mx-auto">
             <div className="flex items-center justify-between p-3">
                 <div className="flex items-center">
-                    <div className='relative'>
-                        <img src="https://source.unsplash.com/50x50/?portrait" alt="" className="object-cover object-center w-8 h-8 rounded-full shadow-sm dark:bg-gray-500 dark:border-gray-700" />
-                        {verify &&
-                            <img className='w-6 absolute top-2 left-6' src="https://cdn-icons-png.flaticon.com/512/5290/5290058.png" alt="" />
-                        }
-                    </div>
                     <div className="ml-4">
-                        <h2 className="text-sm font-semibold leading-none">{seller}</h2>
+                        <div className='flex items-center'>
+                            <h2 className="text-sm font-semibold leading-none">{seller}</h2>
+                            {verify &&
+                                <img className='w-4' src="https://cdn-icons-png.flaticon.com/512/5290/5290058.png" alt="" />
+                            }
+                        </div>
                         <span className="inline-block text-xs leading-none dark:text-gray-400">{email}</span>
                     </div>
                 </div>
@@ -118,11 +117,13 @@ const ProductCard = ({ product }) => {
                 <div className="flex items-center dark:text-white justify-between pt-3 pb-1">
                     <div className='flex flex-col'>
                         <h1 className='font-bold'>Price: ${price}</h1>
-                        <h1>Official: ${orginalPrice}</h1>
+                        <small>Official: ${orginalPrice}</small>
+                        <p>used: {used}</p>
+                        <p>location: {location}</p>
                     </div>
                     <div>
                         <Link>
-                            <button>See Details</button>
+                            <button className='bg-blue-600 hover:bg-blue-700 px-3 rounded-md py-1'>See Details</button>
                         </Link>
                     </div>
                 </div>
