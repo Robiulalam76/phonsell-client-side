@@ -3,12 +3,15 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
 import toast from 'react-hot-toast';
+import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 
 const Signup = () => {
-    const { user, loading, signupWithEmailPassword, updateUser } = useContext(AuthContext)
+    const { user, loading, signupWithEmailPassword, updateUser, signupWithGoogle } = useContext(AuthContext)
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
     const location = useLocation()
     const navigate = useNavigate()
+    const googleProvider = new GoogleAuthProvider()
+    const githubProvider = new GithubAuthProvider()
     const from = location.state?.from?.pathname || '/'
 
     const handleSignup = data => {
@@ -61,6 +64,37 @@ const Signup = () => {
     }
 
 
+    // signup with google
+    const handleGoogleSignup = () => {
+        signupWithGoogle(googleProvider)
+            .then(result => {
+                const userInfo = result.user
+                console.log(result.user);
+                toast.success('User Signup Successfully')
+                navigate(from, { replace: true })
+                const user = {
+                    name: userInfo.displayName,
+                    email: userInfo.email,
+                    role: 'user',
+                    verify: false,
+                    image: userInfo.photoURL
+                }
+                fetch('http://localhost:5000/users', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(user)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        // console.log(data);
+                    })
+            })
+            .catch(err => console.log(err))
+    }
+
+
     // update user profile
     const updateProfile = (name, image) => {
         console.log(name, image);
@@ -78,8 +112,8 @@ const Signup = () => {
 
     return (
 
-        <section className="bg-white dark:bg-gray-900 py-12">
-            <div className="w-[400px] flex items-center justify-center p-8 mx-auto shadow-md shadow-gray-600">
+        <section className="bg-white dark:bg-gray-900 pb-12 pt-4">
+            <div className="w-full md:w-[400px] flex items-center justify-center p-8 mx-auto shadow-md shadow-gray-600">
 
                 <form onSubmit={handleSubmit(handleSignup)} className="w-full max-w-md">
                     <h1 className='text-blue-900 dark:text-white text-2xl font-bold text-center'>SignUp</h1>
@@ -159,6 +193,27 @@ const Signup = () => {
                         <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
                             Sign Up
                         </button>
+
+                        <p className='text-center dark:text-white mt-2'><small>or Signup With</small></p>
+
+                        <div className='grid grid-cols-2 gap-4'>
+                            <div onClick={handleGoogleSignup} className='mt-4 flex justify-center rounded-md bg-white border-gray-blue-900 border py-1'>
+                                <img className='w-6 mr-4' src="https://img.icons8.com/fluency/2x/google-logo.png" alt="" />
+                                <button className="font-bold">
+                                    Google
+                                </button>
+                            </div>
+                            <div className='mt-4 flex justify-center rounded-md bg-white border-gray-blue-900 border py-1'>
+                                <img className='w-6 mr-4' src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="" />
+                                <button className="font-bold">
+                                    Github
+                                </button>
+                            </div>
+                        </div>
+
+
+
+
 
                         <div className="mt-6 text-center ">
                             <p className="text-sm text-gray-900 hover:underline dark:text-gray-400">

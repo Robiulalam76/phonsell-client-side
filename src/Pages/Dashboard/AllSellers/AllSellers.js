@@ -37,12 +37,8 @@ const AllSellers = () => {
 
     // handleVerify
     const handleVerify = (id) => {
-        fetch(`http://localhost:5000/all-sellers`, {
+        fetch(`http://localhost:5000/all-sellers/${id}`, {
             method: 'PUT',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify({ id })
         })
             .then(res => res.json())
             .then(data => {
@@ -59,7 +55,7 @@ const AllSellers = () => {
     }
     return (
         <div className=' bg-white dark:bg-gray-800 min-h-screen py-12 px-6'>
-            <div class="overflow-x-auto relative max-w-[600px] mx-auto">
+            <div class="overflow-x-auto relative w-full md:max-w-[700px] mx-auto">
                 <header className="py-4 border-b border-gray-100">
                     <h2 className="font-semibold text-gray-800 dark:text-white">All Sellers</h2>
                 </header>
@@ -74,6 +70,9 @@ const AllSellers = () => {
                             </th>
                             <th scope="col" class="py-3 px-6">
                                 EMAIL
+                            </th>
+                            <th scope="col" class="py-3 px-6">
+                                ROLE
                             </th>
                             <th scope="col" class="py-3 px-6">
                                 VERIFY

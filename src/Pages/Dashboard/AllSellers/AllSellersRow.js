@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const AllSellersRow = ({ seller, handleRemoveSeller, handleVerify }) => {
-    const { _id, name, image, email, verify, } = seller;
+    const { _id, name, image, email, role, verify, } = seller;
     // console.log(_id);
     return (
         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -14,6 +14,9 @@ const AllSellersRow = ({ seller, handleRemoveSeller, handleVerify }) => {
             </td>
             <td class="py-4 px-6">
                 {email}
+            </td>
+            <td class="py-4 px-6">
+                {role}
             </td>
             <td className="py-4 px-6">
                 {

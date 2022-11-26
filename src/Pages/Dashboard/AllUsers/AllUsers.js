@@ -39,26 +39,26 @@ const AllUsers = () => {
     }
     return (
         <div className=' bg-white dark:bg-gray-800 min-h-screen py-12 px-6'>
-            <div class="overflow-x-auto relative max-w-[600px] mx-auto">
+            <div class="overflow-x-auto relative w-full md:max-w-[700px] mx-auto">
                 <header className="py-4 border-b border-gray-100">
                     <h2 className="font-semibold text-gray-800 dark:text-white">All Users</h2>
                 </header>
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th scope="col" class="py-3 px-2">
+                            <th scope="col" class="py-3 px-6">
                                 IMAGE
                             </th>
-                            <th scope="col" class="py-3 px-2">
+                            <th scope="col" class="py-3 px-6">
                                 NAME
                             </th>
-                            <th scope="col" class="py-3 px-2">
+                            <th scope="col" class="py-3 px-6">
                                 EMAIL
                             </th>
-                            <th scope="col" class="py-3 px-2">
+                            <th scope="col" class="py-3 px-6">
                                 ROLE
                             </th>
-                            <th scope="col" class="py-3 px-2">
+                            <th scope="col" class="py-3 px-6">
                                 ACTION
                             </th>
                         </tr>
