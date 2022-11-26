@@ -1,68 +1,92 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
+import { SyncLoader } from 'react-spinners';
+import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
+import MyWishlistRow from './MyWishlistRow';
 
 const MyWishlist = () => {
+    const { user } = useContext(AuthContext)
 
     // load wishlist
-    const { data: wishlist = [], refetch } = useQuery({
+    const { data: wishlist = [], isLoading, refetch } = useQuery({
         queryKey: ['wishlist'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/wishlist')
+            const res = await fetch(`http://localhost:5000/my-wishlist?email=${user?.email}`)
             const data = await res.json()
             return data
         }
     })
 
-    console.log(wishlist);
+    // remove wishlist
+    const handleRemoveWishlist = (id) => {
+        fetch(`http://localhost:5000/wishlist/${id}`, {
+            method: 'DELETE',
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    toast.success('Weshlist Remove Successfully')
+                    refetch()
+                }
+            })
+    }
+
+    if (isLoading) {
+        return <div className='flex justify-center min-h-screen p-6'><SyncLoader color="#36d7b7" /></div>
+    }
+    // console.log(wishlist);
 
     return (
         <div className="bg-white pb-12 px-6 w-full mx-auto">
+            <div className="flex justify-center mx-auto bg-white">
 
-            <div class="flex justify-center mx-auto bg-white">
-
-                <div class="p-3">
-                    <header class="py-4 border-b border-gray-100">
-                        <h2 class="font-semibold text-gray-800">My Wishlist</h2>
+                <div className="p-3">
+                    <header className="py-4 border-b border-gray-100">
+                        <h2 className="font-semibold text-gray-800">My Wishlist</h2>
                     </header>
-                    <div class="overflow-x-auto">
-                        <table class="table-auto w-full">
-                            <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
+                    <div className="overflow-x-auto">
+                        <table className="table-auto w-full">
+                            <thead className="text-xs font-semibold uppercase text-gray-900 bg-gray-50">
                                 <tr>
-                                    <th class="p-2 whitespace-nowrap">
-                                        <div class="font-semibold text-left">Name</div>
+                                    <th className="p-2 whitespace-nowrap">
+                                        <div className="font-semibold text-left">IMAGE</div>
                                     </th>
-                                    <th class="p-2 whitespace-nowrap">
-                                        <div class="font-semibold text-left">Email</div>
+                                    <th className="p-2 whitespace-nowrap">
+                                        <div className="font-semibold text-left">NAME</div>
                                     </th>
-                                    <th class="p-2 whitespace-nowrap">
-                                        <div class="font-semibold text-left">Spent</div>
+                                    <th className="p-2 whitespace-nowrap">
+                                        <div className="font-semibold text-left">PRICE</div>
                                     </th>
-                                    <th class="p-2 whitespace-nowrap">
-                                        <div class="font-semibold text-center">Country</div>
+                                    <th className="p-2 whitespace-nowrap">
+                                        <div className="font-semibold text-left">ORIGINAL</div>
+                                    </th>
+                                    <th className="p-2 whitespace-nowrap">
+                                        <div className="font-semibold text-left">LOCATION</div>
+                                    </th>
+                                    <th className="p-2 whitespace-nowrap">
+                                        <div className="font-semibold text-left">ACTION</div>
+                                    </th>
+                                    <th className="p-2 whitespace-nowrap">
+                                        <div className="font-semibold text-left">PAYMENT</div>
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody class="text-sm divide-y divide-gray-100">
-                                <tr>
-                                    <td class="p-2 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <div class="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3"><img class="rounded-full" src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-05.jpg" width="40" height="40" alt="Alex Shatov" /></div>
-                                            <div class="font-medium text-gray-800">Alex Shatov</div>
-                                        </div>
-                                    </td>
-                                    <td class="p-2 whitespace-nowrap">
-                                        <div class="text-left">alexshatov@gmail.com</div>
-                                    </td>
-                                    <td class="p-2 whitespace-nowrap">
-                                        <div class="text-left font-medium text-green-500">$2,890.66</div>
-                                    </td>
-                                    <td class="p-2 whitespace-nowrap">
-                                        <div class="text-lg text-center">??</div>
-                                    </td>
-                                </tr>
+                            <tbody className="text-sm divide-y divide-gray-100">
+                                {
+                                    wishlist.map(w => <MyWishlistRow
+                                        key={w._id}
+                                        wishlist={w}
+                                        handleRemoveWishlist={handleRemoveWishlist}
+                                    ></MyWishlistRow>)
+                                }
                             </tbody>
                         </table>
                     </div>
+                    {
+                        wishlist.length === 0 &&
+                        <h1 className='text-center text-xl mt-3 font-bold'>No Wishlist Your Product</h1>
+                    }
                 </div>
             </div>
         </div>

@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
 
 const AddProduct = () => {
     const { user, loading } = useContext(AuthContext)
     const [userInfo, serUserInfo] = useState({})
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
+    const navigate = useNavigate()
 
     const getTime = (date) => {
         var hours = date.getHours();
@@ -79,6 +81,7 @@ const AddProduct = () => {
                             console.log(data);
                             if (data.acknowledged) {
                                 toast.success('Product Add Successfully')
+                                navigate('/dashboard/my-products')
                                 reset()
                             }
                         })
@@ -94,10 +97,10 @@ const AddProduct = () => {
 
                     <div className='grid md:grid-cols-2 gap-6'>
                         <div>
-                            <div class="relative flex items-center mt-8 md:mt-0">
+                            <div className="relative flex items-center mt-8 md:mt-0">
                                 <input
                                     {...register('name', { required: 'Name is Required' })}
-                                    type="text" name='name' class="block w-full py-3 text-gray-700 bg-white border rounded-md px-3 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Product Name" />
+                                    type="text" name='name' className="block w-full py-3 text-gray-700 bg-white border rounded-md px-3 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Product Name" />
                             </div>
                             {errors.name && <p className='text-red-600'>{errors.name.message}</p>}
 
@@ -109,7 +112,7 @@ const AddProduct = () => {
                                     <select
                                         {...register('categoryId', { required: 'category is Required' })}
                                         name='categoryId'
-                                        id="categoryId" class="block w-full px-3 py-3 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-400 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" required>
+                                        id="categoryId" className="block w-full px-3 py-3 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-400 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" required>
                                         {/* <option disabled selected>Category</option> */}
                                         <option value="1">Apple</option>
                                         <option value="2">Xiaomi</option>

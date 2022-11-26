@@ -1,11 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
 import BookNowModal from './BookNowModal';
 
 const ProductCard = ({ product }) => {
-    const { _id, time, seller, verify, email, categoryId, brand, name, image, price, location, sold, condition, used, originalPrice, Model, authenticity, features, description, } = product;
+    const { user } = useContext(AuthContext)
+    const { _id, time, seller, verify, email, categoryId, brand, name, image, price, location, sold, condition, used, originalPrice, model, authenticity, features, description, } = product;
     const [modalData, setModalData] = useState(null)
 
     // order modal close 
@@ -30,6 +32,7 @@ const ProductCard = ({ product }) => {
     const handleWishlist = () => {
         const wishlist = {
             serviceId: _id,
+            wishlisterEmail: user?.email,
             categoryId,
             brand,
             name,
@@ -40,7 +43,7 @@ const ProductCard = ({ product }) => {
             condition,
             used,
             originalPrice,
-            Model,
+            model,
             authenticity,
             features,
             description,
@@ -75,7 +78,7 @@ const ProductCard = ({ product }) => {
             })
     }
     return (
-        <div className="rounded-md shadow-md sm:w-96 dark:bg-gray-900 dark:text-gray-100 mx-auto">
+        <div className="rounded-md shadow-md w-full dark:bg-gray-900 dark:text-gray-100 mx-auto">
             <div className="flex items-center justify-between p-3">
                 <div className="flex items-center">
                     <div className="ml-4">
