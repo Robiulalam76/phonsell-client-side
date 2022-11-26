@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
+import close from '../../../assests/icon/close.png'
 
 const BookNowModal = ({ modalData, closeModal }) => {
     const { user } = useContext(AuthContext)
@@ -61,7 +62,9 @@ const BookNowModal = ({ modalData, closeModal }) => {
                     <div className="mt-3 p-4">
                         <div className='flex justify-between items-center pb-2'>
                             <h3 className="text-lg font-medium leading-6 text-gray-900" id="modal-title">{serviceName}</h3>
-                            <Link onClick={() => closeModal(null)} type="button" className="dark:text-black">X</Link>
+                            <Link onClick={() => closeModal(null)} type="button" className="dark:text-black">
+                                <img className='w-6' src={close} alt="" />
+                            </Link>
                         </div>
                         <form onSubmit={handleSubmit} className="w-full">
 

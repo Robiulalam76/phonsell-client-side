@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
+import logo from '../../../assests/logo/logo.png'
 
 const Header = () => {
     const { user, logout } = useContext(AuthContext)
@@ -11,13 +12,13 @@ const Header = () => {
     }
 
     return (
-        <nav className="bg-white dark:bg-gray-900 md:px-8 py-6">
+        <nav className="bg-slate-700 dark:bg-gray-900 md:px-8 py-4">
             <div className='flex justify-between items-center mx-4'>
-                <div>
-                    <Link to='/' className='block ml-0 dark:text-white font-bold md:hidden'>
-                        PHONSELL
-                    </Link>
-                </div>
+                <Link to='/' className='flex items-center ml-0 dark:text-white font-bold md:hidden'>
+                    <img className='w-10' src={logo} alt="" />
+                    <span>PHONSELL</span>
+                </Link>
+
                 <div onClick={() => setOpen(!open)} className="w-10 md:hidden ml-4 text-white">
                     {
                         open ? <span>
@@ -30,12 +31,15 @@ const Header = () => {
                     }
                 </div>
             </div>
-            <div className={`bg-white dark:bg-gray-900 dark:text-white flex z-50 flex-col items-start justify-start mt-none md:flex-row md:items-center h-full md:h-fit md:w-full md:flex md:justify-end absolute md:static duration-500 ease-in
-             text-blue-900 uppercase
+            <div className={`bg-slate-700 dark:bg-gray-900 text-white flex z-50 flex-col items-start justify-start mt-none md:flex-row md:items-center h-full md:h-fit md:w-full md:flex md:justify-end absolute md:static duration-500 ease-in
+             uppercase
             ${open ? 'left-[0px] pl-8 pr-20 pt-5' : '-left-[300px] md:left-0 pt-5 md:pt-0'}`}>
 
-                <Link to='/' className='text-primary text-2xl font-bold md:grow hidden md:block'>
-                    PHONSELL
+                <Link to='/' className='flex items-center md:grow'>
+
+                    <img className='w-10 hidden md:block' src={logo} alt="" />
+                    <span className='text-primary text-2xl font-bold hidden md:block'>PHONSELL</span>
+
                 </Link>
 
                 <NavLink to='/profile'

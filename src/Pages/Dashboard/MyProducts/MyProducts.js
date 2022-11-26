@@ -67,6 +67,12 @@ const MyProducts = () => {
                                         <div className="font-semibold text-left">LOCATION</div>
                                     </th>
                                     <th className="p-2 whitespace-nowrap">
+                                        <div className="font-semibold text-left">SALES STATUS</div>
+                                    </th>
+                                    <th className="p-2 whitespace-nowrap">
+                                        <div className="font-semibold text-left">PROMOTE</div>
+                                    </th>
+                                    <th className="p-2 whitespace-nowrap">
                                         <div className="font-semibold text-left">ACTION</div>
                                     </th>
                                 </tr>

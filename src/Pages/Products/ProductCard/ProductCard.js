@@ -5,12 +5,14 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
 import BookNowModal from './BookNowModal';
 import ProductReportModal from './ProductReportModal';
+import report from '../../../assests/icon/report.png'
 
 const ProductCard = ({ product }) => {
     const { user } = useContext(AuthContext)
     const { _id, time, seller, verify, email, categoryId, brand, name, image, price, location, sold, condition, used, originalPrice, model, authenticity, features, description, } = product;
     const [modalData, setModalData] = useState(null)
     const [showModal, setShowModal] = useState(false)
+    const [sellerVerify, setSellerVerify] = useState({})
 
     // order modal close 
     const closeModal = (data) => {
@@ -21,6 +23,16 @@ const ProductCard = ({ product }) => {
             setShowModal(data)
         }
     }
+
+    // load user
+    useEffect(() => {
+        fetch(`http://localhost:5000/verify-users?email=${email}`)
+            .then(res => res.json())
+            .then(data => {
+                const sellerInfo = data.filter(seller => setSellerVerify(seller.verify))
+                // console.log(sellerInfo);
+            })
+    }, [email])
 
     // load wishlist
     const { data: wishlist = [], refetch } = useQuery({
@@ -85,13 +97,13 @@ const ProductCard = ({ product }) => {
             })
     }
     return (
-        <div className="rounded-md shadow-md w-full dark:bg-gray-900 dark:text-gray-100 mx-auto">
+        <div className="rounded-md shadow-md w-full bg-gray-300 dark:bg-gray-900 dark:text-gray-100 mx-auto">
             <div className="flex items-center justify-between p-3">
                 <div className="flex items-center">
                     <div className="ml-4">
                         <div className='flex items-center'>
                             <h2 className="text-sm font-semibold leading-none">{seller}</h2>
-                            {verify &&
+                            {sellerVerify &&
                                 <img className='w-4' src="https://cdn-icons-png.flaticon.com/512/5290/5290058.png" alt="" />
                             }
                         </div>
@@ -120,7 +132,7 @@ const ProductCard = ({ product }) => {
                         </button>
 
                         <button onClick={() => setShowModal(true)} type="button" title="Report" className="flex items-center justify-center">
-                            <img className='w-7' src="https://cdn.iconscout.com/icon/premium/png-256-thumb/report-product-2790636-2333981.png" alt="" />
+                            <img className='w-7' src={report} alt="" />
                         </button>
                     </div>
 
@@ -135,11 +147,11 @@ const ProductCard = ({ product }) => {
 
                 </div>
 
-                <div className='flex items-center dark:text-white justify-between pt-3 pb-1'>
+                <div className='flex items-center justify-between pt-3 pb-1'>
                     <Link onClick={() => setModalData(product)}>
-                        <button className='bg-blue-600 hover:bg-blue-700 px-3 rounded-md py-1'>Book now</button>
+                        <button className='bg-blue-600 text-white hover:bg-blue-700 px-3 rounded-md py-1'>Book now</button>
                     </Link>
-                    <Link className='flex items-center dark:text-white hover:text-orange-600'>
+                    <Link className='flex items-center text-gray-900 dark:text-white hover:text-orange-600'>
                         <img className='w-5' src="https://cdn.iconscout.com/icon/premium/png-256-thumb/next-icon-3208452-2707515.png" alt="" />
                         <span>See Details</span>
                     </Link>

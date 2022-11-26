@@ -7,6 +7,7 @@ import AllUsers from "../../Pages/Dashboard/AllUsers/AllUsers";
 import MyOrders from "../../Pages/Dashboard/MyOrders/MyOrders";
 import MyProducts from "../../Pages/Dashboard/MyProducts/MyProducts";
 import MyWishlist from "../../Pages/Dashboard/MyWishlist/MyWishlist";
+import ReportedItems from "../../Pages/Dashboard/ReportedItems/ReportedItems";
 import Home from "../../Pages/Home/Home/Home";
 import Products from "../../Pages/Products/Products/Products";
 import Login from "../../Pages/Profile/Login/Login";
@@ -41,6 +42,7 @@ const router = createBrowserRouter([
             { path: '/dashboard/my-orders', element: <PriveteRoute><MyOrders></MyOrders></PriveteRoute> },
             { path: '/dashboard/all-users', element: <PriveteRoute><AllUsers></AllUsers></PriveteRoute> },
             { path: '/dashboard/all-sellers', element: <PriveteRoute><AllSellers></AllSellers></PriveteRoute> },
+            { path: '/dashboard/reported-items', element: <PriveteRoute><ReportedItems></ReportedItems></PriveteRoute> },
         ]
     }
 ])

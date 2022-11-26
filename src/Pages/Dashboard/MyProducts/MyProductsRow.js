@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const MyProductsRow = ({ product, handleRemoveProduct }) => {
-    const { _id, name, image, price, originalPrice, location } = product
+    const { _id, name, image, price, originalPrice, location, sold } = product
     return (
         <tr>
             <td className="p-2 whitespace-nowrap">
@@ -19,6 +19,14 @@ const MyProductsRow = ({ product, handleRemoveProduct }) => {
             </td>
             <td className="p-2 whitespace-nowrap">
                 <div className="text-left">{location}</div>
+            </td>
+            <td className="p-2 whitespace-nowrap">
+                <div className="text-left">{sold}</div>
+            </td>
+            <td className="p-2 whitespace-nowrap">
+                <Link className="text-left">
+                    <button className='py-1 px-3 bg-red-600 hover:bg-red-700 rounded-md text-white'>Advertise</button>
+                </Link>
             </td>
             <td className="p-2 whitespace-nowrap">
                 <Link className="text-left">
