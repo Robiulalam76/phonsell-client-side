@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
 import toast from 'react-hot-toast';
 import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
+import useToken from '../../../Hooks/useToken';
 
 const Signup = () => {
     const { user, loading, signupWithEmailPassword, updateUser, signupWithGoogle } = useContext(AuthContext)
@@ -13,15 +14,18 @@ const Signup = () => {
     const googleProvider = new GoogleAuthProvider()
     const githubProvider = new GithubAuthProvider()
     const from = location.state?.from?.pathname || '/'
+    const [signupUserEmail, setSignupUserEmail] = useState('')
+    const [token] = useToken(signupUserEmail);
+    if (token) {
+        navigate(from, { replace: true });
+    }
 
     const key = process.env.REACT_APP_IMGBB_KEY;
 
     const handleSignup = data => {
-        // console.log(data.email, data.password);
         signupWithEmailPassword(data.email, data.password)
             .then(result => {
                 const user = result.user
-                // console.log(user);
                 saveUser(data.name, data.email, data.role, data.image[0])
             })
             .catch(error => console.error(error))
@@ -49,20 +53,46 @@ const Signup = () => {
                         verify: false,
                         image
                     }
-                    fetch('http://localhost:5000/users', {
-                        method: 'POST',
-                        headers: {
-                            'content-type': 'application/json'
-                        },
-                        body: JSON.stringify(user)
-                    })
+                    fetch(`http://localhost:5000/check-user?email=${user.email}`)
                         .then(res => res.json())
                         .then(data => {
-                            console.log(data);
+
+                            if (data.status === true) {
+                                setSignupUserEmail(user.email)
+                            }
+                            else if (data.status === false) {
+                                setSignupUserEmail(user.email)
+                                fetch('http://localhost:5000/users', {
+                                    method: 'POST',
+                                    headers: {
+                                        'content-type': 'application/json'
+                                    },
+                                    body: JSON.stringify(user)
+                                })
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        // console.log(data);
+                                    })
+                            }
                         })
+
                 }
                 updateProfile(name, image)
             })
+    }
+
+
+    // update user profile
+    const updateProfile = (name, image) => {
+        const profile = {
+            displayName: name, photoURL: image
+        }
+        updateUser(profile)
+            .then(result => {
+                toast.success('User Signup Successfully')
+                reset()
+            })
+            .catch(error => console.log(error))
     }
 
 
@@ -76,11 +106,11 @@ const Signup = () => {
                     .then(data => {
 
                         if (data.status === true) {
-                            navigate(from, { replace: true })
+                            setSignupUserEmail(userInfo.email)
                         }
                         else if (data.status === false) {
                             newSaveUser(userInfo)
-                            navigate(from, { replace: true })
+                            setSignupUserEmail(userInfo.email)
                             toast.success('User Signup Successfully')
                         }
                     })
@@ -91,8 +121,6 @@ const Signup = () => {
 
 
     const newSaveUser = (userInfo) => {
-        toast.success('User Signup Successfully')
-        navigate(from, { replace: true })
         const user = {
             name: userInfo.displayName,
             email: userInfo.email,
@@ -111,22 +139,6 @@ const Signup = () => {
             .then(data => {
                 // console.log(data);
             })
-    }
-
-
-    // update user profile
-    const updateProfile = (name, image) => {
-        console.log(name, image);
-        const profile = {
-            displayName: name, photoURL: image
-        }
-        updateUser(profile)
-            .then(result => {
-                toast.success('User Signup Successfully')
-                reset()
-                navigate(from, { replace: true })
-            })
-            .catch(error => console.log(error))
     }
 
     return (

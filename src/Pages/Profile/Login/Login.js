@@ -1,9 +1,10 @@
 import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
+import useToken from '../../../Hooks/useToken';
 
 const Login = () => {
     const { user, loading, loginWithEmailPassword, signupWithGoogle } = useContext(AuthContext)
@@ -13,15 +14,20 @@ const Login = () => {
     const googleProvider = new GoogleAuthProvider()
     const githubProvider = new GithubAuthProvider()
     const from = location.state?.from?.pathname || '/'
+    const [loginUserEmail, setLoginUserEmail] = useState('')
+    const [token] = useToken(loginUserEmail);
+    // console.log(loginUserEmail, token);
+    if (token) {
+        navigate(from, { replace: true });
+    }
 
     const handleLogin = data => {
         loginWithEmailPassword(data.email, data.password)
             .then(result => {
                 const user = result.user
-                console.log(user);
                 toast.success('User Login Successfully')
+                setLoginUserEmail(user.email)
                 reset()
-                navigate(from, { replace: true })
             })
             .catch(error => console.error(error))
     }
@@ -37,7 +43,7 @@ const Login = () => {
                     .then(data => {
                         if (data.status === true) {
                             toast.success('User Login Successfully')
-                            navigate(from, { replace: true })
+                            setLoginUserEmail(userInfo.email)
                         }
                         else if (data.status === false) {
                             saveUser(userInfo)
@@ -52,7 +58,7 @@ const Login = () => {
 
     const saveUser = (userInfo) => {
         toast.success('User Signup Successfully')
-        navigate(from, { replace: true })
+        setLoginUserEmail(userInfo.email)
         const user = {
             name: userInfo.displayName,
             email: userInfo.email,

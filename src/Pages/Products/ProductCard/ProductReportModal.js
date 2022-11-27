@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
 
 const ProductReportModal = ({ modalData, closeModal }) => {
-    const { user } = useContext(AuthContext)
+    const { user, logout } = useContext(AuthContext)
     const { _id, time, seller, verify, email, categoryId, brand, name, image, price, location, sold, condition, used, originalPrice, model, authenticity, features, description, } = modalData;
 
     const handleSubmit = (event) => {
@@ -34,11 +34,18 @@ const ProductReportModal = ({ modalData, closeModal }) => {
         fetch('http://localhost:5000/reports', {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('access-token')}`
             },
             body: JSON.stringify(report)
         })
-            .then(res => res.json())
+            .then(res => {
+                if (res.status === 403 || res.status === 401) {
+                    toast.error('User Unuthorized Access')
+                    return logout()
+                }
+                return res.json()
+            })
             .then(data => {
                 if (data.acknowledged) {
                     toast.success(`${name} Report Successfully`)

@@ -12,7 +12,6 @@ const DashboardLayout = () => {
         <div className=''>
             <Header></Header>
             <div className='grid grid-cols-1'>
-
                 <div className={`z-50 absolute duration-500 ease-in ${open ? '' : '-left-[300px] lg:left-0'}`}>
                     <div className="relative min-h-screen border-r border-gray-600 p-3 space-y-2 bg-gray-200 dark:bg-gray-900 dark:text-gray-100">
                         <div className="flex items-center px-2 pt-6 space-x-4">

@@ -97,8 +97,6 @@ const AdvertiseProductCard = ({ advertiseProduct }) => {
             })
     }
 
-    console.log(wishlised?.serviceId, advertiseProduct.serviceId);
-
     return (
         <div className="rounded-md shadow-md w-full bg-gray-300 dark:bg-gray-900 dark:text-gray-100 mx-auto">
             <div className="flex items-center justify-between p-3">
