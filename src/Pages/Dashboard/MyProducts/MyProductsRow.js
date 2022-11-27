@@ -1,8 +1,31 @@
 import React from 'react';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 
 const MyProductsRow = ({ product, handleRemoveProduct }) => {
-    const { _id, name, image, price, originalPrice, location, sold } = product
+    const { _id, time, seller, verify, email, categoryId, brand, name, image, price, location, sold, condition, used, originalPrice, model, authenticity, features, description, } = product;
+    // console.log(_id);
+    const handleAdvertise = () => {
+        const advertiseProduct = {
+            serviceId: _id,
+            time, seller, verify, email, categoryId, brand, name, image, price, location, sold, condition, used, originalPrice, model, authenticity, features, description,
+        }
+
+        // console.log(advertiseProduct);
+        fetch('http://localhost:5000/advertise', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(advertiseProduct)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    toast.success('Product Advertised Successfully')
+                }
+            })
+    }
     return (
         <tr>
             <td className="p-2 whitespace-nowrap">
@@ -25,7 +48,7 @@ const MyProductsRow = ({ product, handleRemoveProduct }) => {
             </td>
             <td className="p-2 whitespace-nowrap">
                 <Link className="text-left">
-                    <button className='py-1 px-3 bg-red-600 hover:bg-red-700 rounded-md text-white'>Advertise</button>
+                    <button onClick={() => handleAdvertise()} className='py-1 px-3 bg-red-600 hover:bg-red-700 rounded-md text-white'>Advertise</button>
                 </Link>
             </td>
             <td className="p-2 whitespace-nowrap">

@@ -14,7 +14,7 @@ export default class SimpleSlider extends Component {
             slidesToScroll: 1
         };
         return (
-            <div>
+            <div className="w-full">
                 <Slider {...settings}>
                     <div>
                         <img className="h-96 w-full" src="https://rukminim1.flixcart.com/flap/1800/1800/image/3ae7fea26c98e040.png?q=80" alt="" />

@@ -18,7 +18,7 @@ const Categories = () => {
         return <div className='flex justify-center p-6'><SyncLoader color="#36d7b7" /></div>
     }
 
-    console.log(categories);
+    // console.log(categories);
     return (
         <div className='m-8'>
             <h1 className='text-3xl font-bold dark:text-white text-gray-900 pb-4'>Categories</h1>

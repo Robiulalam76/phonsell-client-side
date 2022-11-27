@@ -14,6 +14,8 @@ const Signup = () => {
     const githubProvider = new GithubAuthProvider()
     const from = location.state?.from?.pathname || '/'
 
+    const key = process.env.REACT_APP_IMGBB_KEY;
+
     const handleSignup = data => {
         // console.log(data.email, data.password);
         signupWithEmailPassword(data.email, data.password)
@@ -30,7 +32,7 @@ const Signup = () => {
     const saveUser = (name, email, role, image) => {
         const formData = new FormData()
         formData.append('image', image)
-        const uri = `https://api.imgbb.com/1/upload?key=cb1d02f9d4fd8fd69411c15e571d60bf`
+        const uri = `https://api.imgbb.com/1/upload?key=${key}`
         // console.log(uri);
         fetch(uri, {
             method: 'POST',
@@ -69,29 +71,46 @@ const Signup = () => {
         signupWithGoogle(googleProvider)
             .then(result => {
                 const userInfo = result.user
-                console.log(result.user);
-                toast.success('User Signup Successfully')
-                navigate(from, { replace: true })
-                const user = {
-                    name: userInfo.displayName,
-                    email: userInfo.email,
-                    role: 'user',
-                    verify: false,
-                    image: userInfo.photoURL
-                }
-                fetch('http://localhost:5000/users', {
-                    method: 'POST',
-                    headers: {
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify(user)
-                })
+                fetch(`http://localhost:5000/check-user?email=${userInfo.email}`)
                     .then(res => res.json())
                     .then(data => {
-                        // console.log(data);
+
+                        if (data.status === true) {
+                            navigate(from, { replace: true })
+                        }
+                        else if (data.status === false) {
+                            newSaveUser(userInfo)
+                            navigate(from, { replace: true })
+                            toast.success('User Signup Successfully')
+                        }
                     })
+
             })
             .catch(err => console.log(err))
+    }
+
+
+    const newSaveUser = (userInfo) => {
+        toast.success('User Signup Successfully')
+        navigate(from, { replace: true })
+        const user = {
+            name: userInfo.displayName,
+            email: userInfo.email,
+            role: 'user',
+            verify: false,
+            image: userInfo.photoURL
+        }
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                // console.log(data);
+            })
     }
 
 

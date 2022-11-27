@@ -10,6 +10,8 @@ const AddProduct = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
     const navigate = useNavigate()
 
+    const key = process.env.REACT_APP_IMGBB_KEY;
+
     const getTime = (date) => {
         var hours = date.getHours();
         var minutes = date.getMinutes();
@@ -31,13 +33,14 @@ const AddProduct = () => {
             })
     }, [user?.email])
 
+
     // Product add function
     const handleAddProduct = (data) => {
 
         const image = data.image[0]
         const formData = new FormData()
         formData.append('image', image)
-        const uri = `https://api.imgbb.com/1/upload?key=cb1d02f9d4fd8fd69411c15e571d60bf`
+        const uri = `https://api.imgbb.com/1/upload?key=${key}`
         fetch(uri, {
             method: 'POST',
             body: formData
@@ -63,7 +66,6 @@ const AddProduct = () => {
                         sold: "Available",
                         image: image,
                         email: userInfo?.email,
-                        verify: userInfo?.verify,
                         seller: userInfo?.name,
                     }
 

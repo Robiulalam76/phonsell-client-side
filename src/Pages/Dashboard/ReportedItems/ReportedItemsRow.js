@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import ReportTextModal from './ReportTextModal';
 
-const ReportedItemsRow = ({ report }) => {
+const ReportedItemsRow = ({ report, handleReportDelete }) => {
+    const [showModal, setShowModal] = useState(false)
     const { serviceId, _id,
         reportText,
         seller,
@@ -20,6 +22,11 @@ const ReportedItemsRow = ({ report }) => {
         used,
         originalPrice,
         model, authenticity, features, description, verify, time } = report
+
+
+    const closeModal = (data) => {
+        setShowModal(data)
+    }
     return (
         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -39,14 +46,21 @@ const ReportedItemsRow = ({ report }) => {
             </td>
             <td class="py-4 px-6">
                 <Link className="text-left">
-                    <button className='py-1 px-3 bg-blue-600 hover:bg-blue-700 rounded-md text-white'>View</button>
+                    <button onClick={() => setShowModal(true)} className='py-1 px-3 bg-blue-600 hover:bg-blue-700 rounded-md text-white'>View</button>
                 </Link>
             </td>
             <td class="py-4 px-6">
                 <Link className="text-left">
-                    <button className='py-1 px-3 bg-red-600 hover:bg-red-700 rounded-md text-white'>Delete</button>
+                    <button onClick={() => handleReportDelete(serviceId)} className='py-1 px-3 bg-red-600 hover:bg-red-700 rounded-md text-white'>Delete</button>
                 </Link>
             </td>
+            {
+                showModal &&
+                <ReportTextModal
+                    reportText={reportText}
+                    closeModal={closeModal}
+                ></ReportTextModal>
+            }
         </tr>
     );
 };

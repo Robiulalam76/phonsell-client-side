@@ -33,7 +33,7 @@ const MyOrders = () => {
     }
 
     if (isLoading) {
-        return <div className='flex justify-center min-h-screen p-6'><SyncLoader color="#36d7b7" /></div>
+        return <div className='absolute top-[30%] right-[50%] flex justify-center min-h-screen p-6'><SyncLoader color="#36d7b7" /></div>
     }
     return (
         <div className="bg-white pb-12 px-6 w-full mx-auto">

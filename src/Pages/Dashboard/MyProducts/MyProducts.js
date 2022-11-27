@@ -36,7 +36,7 @@ const MyProducts = () => {
     console.log(myProducts);
 
     if (isLoading) {
-        return <div className='flex justify-center min-h-screen bg-white p-6'><SyncLoader color="#36d7b7" /></div>
+        return <div className='absolute top-[30%] right-[50%] flex justify-center min-h-screen p-6'><SyncLoader color="#36d7b7" /></div>
     }
 
     return (

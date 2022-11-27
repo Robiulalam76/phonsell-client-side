@@ -35,12 +35,13 @@ const Login = () => {
                 fetch(`http://localhost:5000/check-user?email=${userInfo.email}`)
                     .then(res => res.json())
                     .then(data => {
-                        if (data.status) {
-                            toast.success('User Signup Successfully')
+                        if (data.status === true) {
+                            toast.success('User Login Successfully')
                             navigate(from, { replace: true })
                         }
-                        else if (data.status) {
+                        else if (data.status === false) {
                             saveUser(userInfo)
+                            toast.success('User Signup Successfully')
                         }
                     })
 

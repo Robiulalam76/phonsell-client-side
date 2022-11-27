@@ -18,40 +18,53 @@ const ReportedItems = () => {
         }
     })
 
-    console.log(reports);
 
-    // remove wishlist
-    const handleRemoveSeller = (id) => {
+    // delete report product for user report
+    const handleReportDelete = (id) => {
         fetch(`http://localhost:5000/reports/${id}`, {
             method: 'DELETE',
         })
             .then(res => res.json())
             .then(data => {
                 if (data.deletedCount > 0) {
-                    toast.success('Seller Remove Successfully')
+                    handleProductDelete(id)
+                    handleDeleteAdvertiseProduct(id)
                     refetch()
                 }
             })
     }
 
-
-    // handleVerify
-    const handleVerify = (id) => {
-        fetch(`http://localhost:5000/all-sellers/${id}`, {
-            method: 'PUT',
+    // delete product for report
+    const handleProductDelete = (id) => {
+        fetch(`http://localhost:5000/products/${id}`, {
+            method: 'DELETE',
         })
             .then(res => res.json())
             .then(data => {
-                if (data.modifiedCount > 0) {
-                    toast.success('Seller Verified Successfully')
+                if (data.deletedCount > 0) {
+                    toast.success('Product Deleted Successfully')
                     refetch()
                 }
-                // console.log(data);
             })
     }
 
+
+    // delete advertise product for report
+    const handleDeleteAdvertiseProduct = id => {
+        fetch(`http://localhost:5000/advertiseProducts/${id}`, {
+            method: 'DELETE',
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    refetch()
+                }
+            })
+    }
+
+
     if (isLoading) {
-        return <div className='flex justify-center min-h-screen p-6'><SyncLoader color="#36d7b7" /></div>
+        return <div className='absolute top-[30%] right-[50%] flex justify-center min-h-screen p-6'><SyncLoader color="#36d7b7" /></div>
     }
     return (
         <div className=' bg-white dark:bg-gray-800 min-h-screen py-12 px-6'>
@@ -90,6 +103,7 @@ const ReportedItems = () => {
                             reports.map(report => <ReportedItemsRow
                                 key={report._id}
                                 report={report}
+                                handleReportDelete={handleReportDelete}
                             ></ReportedItemsRow>)
                         }
                     </tbody>
