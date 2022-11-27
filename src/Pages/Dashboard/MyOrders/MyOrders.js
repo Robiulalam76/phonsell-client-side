@@ -6,7 +6,7 @@ import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
 import MyOrdersRow from './MyOrdersRow';
 
 const MyOrders = () => {
-    const { user } = useContext(AuthContext)
+    const { user, logout } = useContext(AuthContext)
 
     // load wishlist
     const { data: myOrders = [], isLoading, refetch } = useQuery({
@@ -22,8 +22,18 @@ const MyOrders = () => {
     const handleRemoveOrder = (id) => {
         fetch(`http://localhost:5000/my-orders/${id}`, {
             method: 'DELETE',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('access-token')}`
+            },
         })
-            .then(res => res.json())
+            .then(res => {
+                if (res.status === 403 || res.status === 401) {
+                    toast.error('User Unuthorized Access')
+                    return logout()
+                }
+                return res.json()
+            })
             .then(data => {
                 if (data.deletedCount > 0) {
                     toast.success('Order Remove Successfully')

@@ -6,7 +6,7 @@ import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
 import ReportedItemsRow from './ReportedItemsRow';
 
 const ReportedItems = () => {
-    const { user } = useContext(AuthContext)
+    const { user, logout } = useContext(AuthContext)
 
     // load wishlist
     const { data: reports = [], isLoading, refetch } = useQuery({
@@ -23,8 +23,18 @@ const ReportedItems = () => {
     const handleReportDelete = (id) => {
         fetch(`http://localhost:5000/reports/${id}`, {
             method: 'DELETE',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('access-token')}`
+            },
         })
-            .then(res => res.json())
+            .then(res => {
+                if (res.status === 403 || res.status === 401) {
+                    toast.error('User Unuthorized Access')
+                    return logout()
+                }
+                return res.json()
+            })
             .then(data => {
                 if (data.deletedCount > 0) {
                     handleProductDelete(id)
@@ -38,8 +48,18 @@ const ReportedItems = () => {
     const handleProductDelete = (id) => {
         fetch(`http://localhost:5000/products/${id}`, {
             method: 'DELETE',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('access-token')}`
+            },
         })
-            .then(res => res.json())
+            .then(res => {
+                if (res.status === 403 || res.status === 401) {
+                    toast.error('User Unuthorized Access')
+                    return logout()
+                }
+                return res.json()
+            })
             .then(data => {
                 if (data.deletedCount > 0) {
                     toast.success('Product Deleted Successfully')
@@ -53,8 +73,18 @@ const ReportedItems = () => {
     const handleDeleteAdvertiseProduct = id => {
         fetch(`http://localhost:5000/advertiseProducts/${id}`, {
             method: 'DELETE',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('access-token')}`
+            },
         })
-            .then(res => res.json())
+            .then(res => {
+                if (res.status === 403 || res.status === 401) {
+                    toast.error('User Unuthorized Access')
+                    return logout()
+                }
+                return res.json()
+            })
             .then(data => {
                 if (data.deletedCount > 0) {
                     refetch()

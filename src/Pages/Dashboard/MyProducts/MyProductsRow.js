@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
 
 const MyProductsRow = ({ product, handleRemoveProduct }) => {
+    const { user, logout } = useContext(AuthContext)
     const { _id, time, seller, verify, email, categoryId, brand, name, image, price, location, sold, condition, used, originalPrice, model, authenticity, features, description, } = product;
     // console.log(_id);
     const handleAdvertise = () => {
@@ -15,11 +17,18 @@ const MyProductsRow = ({ product, handleRemoveProduct }) => {
         fetch('http://localhost:5000/advertise', {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('access-token')}`
             },
             body: JSON.stringify(advertiseProduct)
         })
-            .then(res => res.json())
+            .then(res => {
+                if (res.status === 403 || res.status === 401) {
+                    toast.error('User Unuthorized Access')
+                    return logout()
+                }
+                return res.json()
+            })
             .then(data => {
                 if (data.acknowledged) {
                     toast.success('Product Advertised Successfully')

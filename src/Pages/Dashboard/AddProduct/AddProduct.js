@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
 
 const AddProduct = () => {
-    const { user, loading } = useContext(AuthContext)
+    const { user, loading, logout } = useContext(AuthContext)
     const [userInfo, serUserInfo] = useState({})
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
     const navigate = useNavigate()
@@ -74,11 +74,18 @@ const AddProduct = () => {
                     fetch('http://localhost:5000/products', {
                         method: 'POST',
                         headers: {
-                            'content-type': 'application/json'
+                            'content-type': 'application/json',
+                            authorization: `bearer ${localStorage.getItem('access-token')}`
                         },
                         body: JSON.stringify(product)
                     })
-                        .then(res => res.json())
+                        .then(res => {
+                            if (res.status === 403 || res.status === 401) {
+                                toast.error('User Unuthorized Access')
+                                return logout()
+                            }
+                            return res.json()
+                        })
                         .then(data => {
                             console.log(data);
                             if (data.acknowledged) {

@@ -6,7 +6,7 @@ import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
 import MyProductsRow from './MyProductsRow';
 
 const MyProducts = () => {
-    const { user } = useContext(AuthContext)
+    const { user, logout } = useContext(AuthContext)
 
     // load wishlist
     const { data: myProducts = [], isLoading, refetch } = useQuery({
@@ -23,8 +23,18 @@ const MyProducts = () => {
     const handleRemoveProduct = (id) => {
         fetch(`http://localhost:5000/products/${id}`, {
             method: 'DELETE',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('access-token')}`
+            },
         })
-            .then(res => res.json())
+            .then(res => {
+                if (res.status === 403 || res.status === 401) {
+                    toast.error('User Unuthorized Access')
+                    return logout()
+                }
+                return res.json()
+            })
             .then(data => {
                 if (data.deletedCount > 0) {
                     toast.success('Product Remove Successfully')
@@ -33,7 +43,7 @@ const MyProducts = () => {
             })
     }
 
-    console.log(myProducts);
+    // console.log(myProducts);
 
     if (isLoading) {
         return <div className='absolute top-[30%] right-[50%] flex justify-center min-h-screen p-6'><SyncLoader color="#36d7b7" /></div>

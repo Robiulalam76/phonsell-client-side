@@ -6,7 +6,7 @@ import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
 import AllSellersRow from './AllSellersRow';
 
 const AllSellers = () => {
-    const { user } = useContext(AuthContext)
+    const { user, logout } = useContext(AuthContext)
 
     // load wishlist
     const { data: sellers = [], isLoading, refetch } = useQuery({
@@ -18,14 +18,24 @@ const AllSellers = () => {
         }
     })
 
-    console.log(sellers);
+    // console.log(sellers);
 
     // remove wishlist
     const handleRemoveSeller = (id) => {
         fetch(`http://localhost:5000/all-sellers/${id}`, {
             method: 'DELETE',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('access-token')}`
+            },
         })
-            .then(res => res.json())
+            .then(res => {
+                if (res.status === 403 || res.status === 401) {
+                    toast.error('User Unuthorized Access')
+                    return logout()
+                }
+                return res.json()
+            })
             .then(data => {
                 if (data.deletedCount > 0) {
                     toast.success('Seller Remove Successfully')
@@ -39,8 +49,19 @@ const AllSellers = () => {
     const handleVerify = (id) => {
         fetch(`http://localhost:5000/all-sellers/${id}`, {
             method: 'PUT',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('access-token')}`
+            },
+
         })
-            .then(res => res.json())
+            .then(res => {
+                if (res.status === 403 || res.status === 401) {
+                    toast.error('User Unuthorized Access')
+                    return logout()
+                }
+                return res.json()
+            })
             .then(data => {
                 if (data.modifiedCount > 0) {
                     toast.success('Seller Verified Successfully')
