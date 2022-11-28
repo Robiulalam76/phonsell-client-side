@@ -46,14 +46,14 @@ const MyOrders = () => {
         return <div className='absolute top-[30%] right-[50%] flex justify-center min-h-screen p-6'><SyncLoader color="#36d7b7" /></div>
     }
     return (
-        <div className="bg-white dark:bg-gray-800 min-h-screen py-12 px-6">
-            <div className="overflow-x-auto relative w-full md:max-w-[700px] mx-auto">
+        <div className="bg-white dark:bg-gray-200 min-h-screen py-12 px-6">
+            <div className="relative w-full md:max-w-fit mx-auto">
 
                 <div className="p-3">
                     <header className="py-4 border-b border-gray-100">
                         <h2 className="font-semibold text-gray-800">My Orders</h2>
                     </header>
-                    <div className="overflow-x-auto max-w-fit">
+                    <div className="overflow-x-auto md:overflow-hidden max-w-fit">
                         <table className="table-auto w-full">
                             <thead className="text-xs font-semibold uppercase text-gray-900 bg-gray-50">
                                 <tr>

@@ -6,6 +6,7 @@ import Blogs from "../../Pages/Blogs/Blogs";
 import AddProduct from "../../Pages/Dashboard/AddProduct/AddProduct";
 import AllSellers from "../../Pages/Dashboard/AllSellers/AllSellers";
 import AllUsers from "../../Pages/Dashboard/AllUsers/AllUsers";
+import Dashboard from "../../Pages/Dashboard/Dashboard";
 import MyOrders from "../../Pages/Dashboard/MyOrders/MyOrders";
 import MyProducts from "../../Pages/Dashboard/MyProducts/MyProducts";
 import MyWishlist from "../../Pages/Dashboard/MyWishlist/MyWishlist";
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
         element: <PriveteRoute><DashboardLayout></DashboardLayout></PriveteRoute>,
         children: [
             { path: '/dashboard/my-products', element: <SellerRoute><MyProducts></MyProducts></SellerRoute> },
+            { path: '/dashboard', element: <PriveteRoute><Dashboard></Dashboard> </PriveteRoute> },
             { path: '/dashboard/addProduct', element: <SellerRoute><AddProduct></AddProduct></SellerRoute> },
 
             { path: '/dashboard/my-wishlist', element: <UserRoute><MyWishlist></MyWishlist></UserRoute> },

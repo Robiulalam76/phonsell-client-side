@@ -74,7 +74,7 @@ const MyProducts = () => {
 
     return (
         <div className="bg-white pb-12 px-6 w-full mx-auto">
-            <div className="flex justify-center mx-auto bg-white">
+            <div className="flex justify-center md:max-w-fit mx-auto bg-white">
 
                 <div className="p-3">
                     <header className="py-4 border-b border-gray-100">

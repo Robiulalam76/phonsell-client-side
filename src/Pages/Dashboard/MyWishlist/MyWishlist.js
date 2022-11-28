@@ -48,8 +48,8 @@ const MyWishlist = () => {
     // console.log(wishlist);
 
     return (
-        <div className="bg-white dark:bg-gray-800 min-h-screen py-12 px-6">
-            <div className="overflow-x-auto relative w-full md:max-w-[700px] mx-auto">
+        <div className="bg-white dark:bg-gray-200 min-h-screen py-12 px-6">
+            <div className="overflow-x-auto relative w-full md:max-w-fit mx-auto">
 
                 <div className="p-3">
                     <header className="py-4 border-b border-gray-100">
