@@ -17,16 +17,18 @@ phonsell is a used mobile phone selling site.  Used mobiles from Apple Xiaomi an
 ## Website Details
 phonsell is a used mobile phone selling site.  Used mobiles from Apple Xiaomi and Samsung companies are available on this website
 
-- There are some routes in the website header.  They are home, services, blogs, my reviews, add service and user info.
-- At the beginning, there are some sections on the homepage, first there is a banner slider, latest services, then gallery image, feedback, and footer.
-- Once the services are up, you will get cards on top of many photographs.  Where you can choose photography packages based on your preference.
-- Packages have a Details button each. Clicking on the details button will take you to the details page of the package. Where you can see details of selected package.
-- On the package details page you can comment in the review inbox to send your feedback.  And previous comments can be viewed there and updated or deleted.
-- In the header you will see another box named Route where articles on various photography topics will be given.
-- Add service and other photography packages can be uploaded on the website very easily. Next to it, there is a route called My Review, which if clicked will show the reviews that you have previously given on different packages and you can delete or update them.
-
+- There are some routes in the website header.  They are home, about, blogs, dashboard, login and user profile.
+- There is a banner on the home page.  Then there are 3 categories.
+- home page 3 categories click to go category products page. and there category all products show.
+- product card in product information and wishlist, report button, and book now button for order the product
+- Clicking on book now will open a model where the product can be ordered.
+- The dashboard page will have a few routes for users, a few routes for sellers, and a few exits for admins.
+- Firebase Authentication System.
+- User Login and signup system
+- Admin dashboard will have all users all sellers and reported items about and only admin will have access to them no one else will have access
+- Admin side can delete user and seller and verify seller.  And the report of all the products can be seen in the report. If the admin wants to delete the reporter products
 - `which are used on the website` 
-- Tailwind CSS, tanstack Query, React Form, fierebase Authentication system, express, mongodb etc.
+- Tailwind CSS, tanstack Query, React Form, fierebase Authentication system, express, mongodb, stripe payment gateway system etc.
 
 
 
