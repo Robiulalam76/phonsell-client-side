@@ -45,7 +45,7 @@ const MyProducts = () => {
 
     // if product advertise then delete
     const handleAdvertiseDelete = (id) => {
-        console.log(id);
+        // console.log(id);
         fetch(`https://phonsell-server-robiulalam76.vercel.app/advertiseProducts/${id}`, {
             method: 'DELETE',
             headers: {
