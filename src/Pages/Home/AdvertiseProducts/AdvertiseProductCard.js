@@ -9,7 +9,7 @@ import AdvertiseReportModal from './AdvertiseReportModal';
 
 const AdvertiseProductCard = ({ advertiseProduct }) => {
     const { time, seller, verify, email, categoryId, brand, name, image, price, location, sold, condition, used, originalPrice, model, authenticity, features, description, } = advertiseProduct;
-    const { user } = useContext(AuthContext)
+    const { user, logout } = useContext(AuthContext)
     const [modalData, setModalData] = useState(null)
     const [showModal, setShowModal] = useState(false)
     const [sellerVerify, setSellerVerify] = useState({})
@@ -70,11 +70,18 @@ const AdvertiseProductCard = ({ advertiseProduct }) => {
         fetch('http://localhost:5000/wishlist', {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('access-token')}`
             },
             body: JSON.stringify(wishlist)
         })
-            .then(res => res.json())
+            .then(res => {
+                if (res.status === 403 || res.status === 401) {
+                    toast.error('User Unuthorized Access')
+                    return logout()
+                }
+                return res.json()
+            })
             .then(data => {
                 if (data.acknowledged) {
                     toast.success('Weshlist add Successfully')
@@ -87,8 +94,18 @@ const AdvertiseProductCard = ({ advertiseProduct }) => {
     const handleRemoveWishlist = (id) => {
         fetch(`http://localhost:5000/wishlist/${id}`, {
             method: 'DELETE',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('access-token')}`
+            },
         })
-            .then(res => res.json())
+            .then(res => {
+                if (res.status === 403 || res.status === 401) {
+                    toast.error('User Unuthorized Access')
+                    return logout()
+                }
+                return res.json()
+            })
             .then(data => {
                 if (data.deletedCount > 0) {
                     toast.success('Weshlist Remove Successfully')

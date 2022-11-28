@@ -18,7 +18,6 @@ const MyProducts = () => {
         }
     })
 
-
     // remove Product
     const handleRemoveProduct = (id) => {
         fetch(`http://localhost:5000/products/${id}`, {
@@ -37,13 +36,37 @@ const MyProducts = () => {
             })
             .then(data => {
                 if (data.deletedCount > 0) {
+                    handleAdvertiseDelete(id)
                     toast.success('Product Remove Successfully')
                     refetch()
                 }
             })
     }
 
-    // console.log(myProducts);
+    // if product advertise then delete
+    const handleAdvertiseDelete = (id) => {
+        console.log(id);
+        fetch(`http://localhost:5000/advertiseProducts/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('access-token')}`
+            },
+        })
+            .then(res => {
+                if (res.status === 403 || res.status === 401) {
+                    toast.error('User Unuthorized Access')
+                    return logout()
+                }
+                return res.json()
+            })
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    console.log(data);
+                }
+            })
+    }
+
 
     if (isLoading) {
         return <div className='absolute top-[30%] right-[50%] flex justify-center min-h-screen p-6'><SyncLoader color="#36d7b7" /></div>

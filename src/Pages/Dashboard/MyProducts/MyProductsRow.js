@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
@@ -6,7 +6,30 @@ import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
 const MyProductsRow = ({ product, handleRemoveProduct }) => {
     const { user, logout } = useContext(AuthContext)
     const { _id, time, seller, verify, email, categoryId, brand, name, image, price, location, sold, condition, used, originalPrice, model, authenticity, features, description, } = product;
-    // console.log(_id);
+    const [advertisePermit, setAdvertisePermit] = useState(true)
+
+    const refetch = () => {
+        fetch(`http://localhost:5000/advertiseProducts/${_id}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.serviceId === _id) {
+                    setAdvertisePermit(false)
+                }
+            })
+    }
+
+    // data fetch with
+    useEffect(() => {
+        fetch(`http://localhost:5000/advertiseProducts/${_id}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.serviceId === _id) {
+                    setAdvertisePermit(false)
+                }
+            })
+    }, [])
+
+
     const handleAdvertise = () => {
         const advertiseProduct = {
             serviceId: _id,
@@ -31,6 +54,7 @@ const MyProductsRow = ({ product, handleRemoveProduct }) => {
             })
             .then(data => {
                 if (data.acknowledged) {
+                    refetch()
                     toast.success('Product Advertised Successfully')
                 }
             })
@@ -57,7 +81,11 @@ const MyProductsRow = ({ product, handleRemoveProduct }) => {
             </td>
             <td className="p-2 whitespace-nowrap">
                 <Link className="text-left">
-                    <button onClick={() => handleAdvertise()} className='py-1 px-3 bg-red-600 hover:bg-red-700 rounded-md text-white'>Advertise</button>
+                    {advertisePermit ?
+                        <button onClick={() => handleAdvertise()} className='py-1 px-3 bg-red-600 hover:bg-red-700 rounded-md text-white'>Advertise</button>
+                        :
+                        <button disabled={!advertisePermit} className='py-1 px-2 bg-gray-500 rounded-md text-white'>Advertised</button>
+                    }
                 </Link>
             </td>
             <td className="p-2 whitespace-nowrap">

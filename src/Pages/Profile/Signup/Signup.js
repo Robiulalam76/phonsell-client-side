@@ -20,6 +20,8 @@ const Signup = () => {
         navigate(from, { replace: true });
     }
 
+    console.log(token, signupUserEmail);
+
     const key = process.env.REACT_APP_IMGBB_KEY;
 
     const handleSignup = data => {
@@ -53,29 +55,18 @@ const Signup = () => {
                         verify: false,
                         image
                     }
-                    fetch(`http://localhost:5000/check-user?email=${user.email}`)
+                    setSignupUserEmail(user.email)
+                    fetch('http://localhost:5000/users', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(user)
+                    })
                         .then(res => res.json())
                         .then(data => {
-
-                            if (data.status === true) {
-                                setSignupUserEmail(user.email)
-                            }
-                            else if (data.status === false) {
-                                setSignupUserEmail(user.email)
-                                fetch('http://localhost:5000/users', {
-                                    method: 'POST',
-                                    headers: {
-                                        'content-type': 'application/json'
-                                    },
-                                    body: JSON.stringify(user)
-                                })
-                                    .then(res => res.json())
-                                    .then(data => {
-                                        // console.log(data);
-                                    })
-                            }
+                            // console.log(data);
                         })
-
                 }
                 updateProfile(name, image)
             })

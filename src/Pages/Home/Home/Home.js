@@ -6,7 +6,7 @@ import UsedPhoneInstruction from '../UsedPhoneInstruction/UsedPhoneInstruction';
 
 const Home = () => {
     return (
-        <div className="">
+        <div className="w-full mx-auto">
             <SimpleSlider></SimpleSlider>
             <Categories></Categories>
             <AdvertiseProducts></AdvertiseProducts>

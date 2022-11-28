@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Slider from "react-slick";
 
 export default class SimpleSlider extends Component {
+
     render() {
 
         const settings = {
@@ -14,18 +15,18 @@ export default class SimpleSlider extends Component {
             slidesToScroll: 1
         };
         return (
-            <div className="w-full">
+            <div className="">
                 <Slider {...settings}>
-                    <div>
+                    <div className="">
                         <img className="h-96 w-full" src="https://rukminim1.flixcart.com/flap/1800/1800/image/3ae7fea26c98e040.png?q=80" alt="" />
                     </div>
-                    <div>
+                    <div className="">
                         <img className="h-96 w-full" src="https://www.mobiles.co.uk/blog/content/images/size/w2000/2017/09/upload_75234205_blog-header1.jpg" alt="" />
                     </div>
-                    <div>
+                    <div className="">
                         <img className="h-96 w-full" src="https://rukminim1.flixcart.com/flap/1800/1800/image/3ae7fea26c98e040.png?q=80" alt="" />
                     </div>
-                    <div>
+                    <div className="">
                         <img className="h-96 w-full" src="https://www.bajajfinserv.in/Blog_Image_Indian_Mobile_Brands_CP_Banner_060820_790_345_Phones.jpg" alt="" />
                     </div>
 
