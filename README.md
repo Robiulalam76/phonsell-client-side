@@ -2,9 +2,9 @@
 phonsell is a used mobile phone selling site.  Used mobiles from Apple Xiaomi and Samsung companies are available on this website
 
 ## Important Links of the Website:
-1. Client Side: https://github.com/Porgramming-Hero-web-course/b6a11-service-review-client-side-Robiulalam76
+1. Client Side: https://github.com/programming-hero-web-course-4/b612-used-products-resale-clients-side-Robiulalam76
 
-2. Server Side: https://github.com/Porgramming-Hero-web-course/b6a11-service-review-server-side-Robiulalam76
+2. Server Side: https://github.com/programming-hero-web-course-4/b612-used-products-resale-server-side-Robiulalam76
 
 3. Live Site: https://phonsell-ae912.web.app
 
