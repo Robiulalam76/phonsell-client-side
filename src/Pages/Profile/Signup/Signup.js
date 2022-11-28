@@ -5,6 +5,7 @@ import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
 import toast from 'react-hot-toast';
 import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 import useToken from '../../../Hooks/useToken';
+import Loader from '../../../Components/Loader';
 
 const Signup = () => {
     const { user, loading, signupWithEmailPassword, updateUser, signupWithGoogle } = useContext(AuthContext)
@@ -20,7 +21,7 @@ const Signup = () => {
         navigate(from, { replace: true });
     }
 
-    console.log(token, signupUserEmail);
+    // console.log(token, signupUserEmail);
 
     const key = process.env.REACT_APP_IMGBB_KEY;
 
@@ -55,8 +56,7 @@ const Signup = () => {
                         verify: false,
                         image
                     }
-                    setSignupUserEmail(user.email)
-                    fetch('http://localhost:5000/users', {
+                    fetch('https://phonsell-server-robiulalam76.vercel.app/users', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json'
@@ -65,6 +65,7 @@ const Signup = () => {
                     })
                         .then(res => res.json())
                         .then(data => {
+                            setSignupUserEmail(user.email)
                             // console.log(data);
                         })
                 }
@@ -92,7 +93,7 @@ const Signup = () => {
         signupWithGoogle(googleProvider)
             .then(result => {
                 const userInfo = result.user
-                fetch(`http://localhost:5000/check-user?email=${userInfo.email}`)
+                fetch(`https://phonsell-server-robiulalam76.vercel.app/check-user?email=${userInfo.email}`)
                     .then(res => res.json())
                     .then(data => {
 
@@ -101,7 +102,6 @@ const Signup = () => {
                         }
                         else if (data.status === false) {
                             newSaveUser(userInfo)
-                            setSignupUserEmail(userInfo.email)
                             toast.success('User Signup Successfully')
                         }
                     })
@@ -119,7 +119,7 @@ const Signup = () => {
             verify: false,
             image: userInfo.photoURL
         }
-        fetch('http://localhost:5000/users', {
+        fetch('https://phonsell-server-robiulalam76.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -129,12 +129,16 @@ const Signup = () => {
             .then(res => res.json())
             .then(data => {
                 // console.log(data);
+                setSignupUserEmail(userInfo.email)
             })
     }
 
     return (
 
         <section className="bg-white dark:bg-gray-900 pb-12 pt-4">
+            {
+                loading === true && <Loader></Loader>
+            }
             <div className="w-full md:w-[400px] flex items-center justify-center p-8 mx-auto shadow-md shadow-gray-600">
 
                 <form onSubmit={handleSubmit(handleSignup)} className="w-full max-w-md">

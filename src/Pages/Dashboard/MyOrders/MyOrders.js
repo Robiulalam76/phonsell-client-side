@@ -12,7 +12,7 @@ const MyOrders = () => {
     const { data: myOrders = [], isLoading, refetch } = useQuery({
         queryKey: ['myOrders'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/my-orders?email=${user?.email}`)
+            const res = await fetch(`https://phonsell-server-robiulalam76.vercel.app/my-orders?email=${user?.email}`)
             const data = await res.json()
             return data
         }
@@ -20,7 +20,7 @@ const MyOrders = () => {
 
     // remove wishlist
     const handleRemoveOrder = (id) => {
-        fetch(`http://localhost:5000/my-orders/${id}`, {
+        fetch(`https://phonsell-server-robiulalam76.vercel.app/my-orders/${id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',
@@ -46,8 +46,8 @@ const MyOrders = () => {
         return <div className='absolute top-[30%] right-[50%] flex justify-center min-h-screen p-6'><SyncLoader color="#36d7b7" /></div>
     }
     return (
-        <div className="bg-white min-h-screen w-full pb-12 px-6 mx-auto">
-            <div className="flex justify-center mx-auto bg-white">
+        <div className="bg-white dark:bg-gray-800 min-h-screen py-12 px-6">
+            <div className="overflow-x-auto relative w-full md:max-w-[700px] mx-auto">
 
                 <div className="p-3">
                     <header className="py-4 border-b border-gray-100">

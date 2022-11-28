@@ -16,7 +16,7 @@ const Header = () => {
             <div className='flex justify-between items-center mx-4'>
                 <Link to='/' className='flex items-center ml-0 dark:text-white font-bold md:hidden'>
                     <img className='w-10' src={logo} alt="" />
-                    <span>PHONSELL</span>
+                    <span className='dark:text-white'>PHONSELL</span>
                 </Link>
 
                 <div onClick={() => setOpen(!open)} className="w-10 md:hidden ml-4 text-white">
@@ -38,7 +38,7 @@ const Header = () => {
                 <Link to='/' className='flex items-center md:grow'>
 
                     <img className='w-10 hidden md:block' src={logo} alt="" />
-                    <span className='text-primary text-2xl font-bold hidden md:block'>PHONSELL</span>
+                    <span className='text-2xl dark:text-white font-bold hidden md:block'>PHONSELL</span>
 
                 </Link>
 

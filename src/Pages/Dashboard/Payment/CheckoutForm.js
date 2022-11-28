@@ -27,7 +27,7 @@ const CheckoutForm = ({ order }) => {
 
 
     const handleUpdateSalesStatus = () => {
-        fetch(`http://localhost:5000/my-orders/${serviceId}`, {
+        fetch(`https://phonsell-server-robiulalam76.vercel.app/my-orders/${serviceId}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',
@@ -50,7 +50,7 @@ const CheckoutForm = ({ order }) => {
     }
 
     const handleDeleteProduct = (serviceId) => {
-        fetch(`http://localhost:5000/products/${serviceId}`, {
+        fetch(`https://phonsell-server-robiulalam76.vercel.app/products/${serviceId}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',
@@ -73,7 +73,7 @@ const CheckoutForm = ({ order }) => {
 
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
-        fetch("http://localhost:5000/create-payment-intent", {
+        fetch("https://phonsell-server-robiulalam76.vercel.app/create-payment-intent", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -141,7 +141,7 @@ const CheckoutForm = ({ order }) => {
                 email,
                 orderId: serviceId
             }
-            fetch('http://localhost:5000/payments', {
+            fetch('https://phonsell-server-robiulalam76.vercel.app/payments', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',

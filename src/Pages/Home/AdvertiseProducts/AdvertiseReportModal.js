@@ -31,7 +31,7 @@ const AdvertiseReportModal = ({ modalData, closeModal }) => {
             model, authenticity, features, description, verify, time
         }
 
-        fetch('http://localhost:5000/reports', {
+        fetch('https://phonsell-server-robiulalam76.vercel.app/reports', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

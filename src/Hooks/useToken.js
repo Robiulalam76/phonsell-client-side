@@ -1,18 +1,17 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios'
 
 const useToken = (email) => {
     const [token, setToken] = useState('')
     console.log(email);
     useEffect(() => {
         if (email) {
-            axios.get(`http://localhost:5000/jwt?email=${email}`)
+            fetch(`https://phonsell-server-robiulalam76.vercel.app/jwt?email=${email}`)
+                .then(res => res.json())
                 .then(data => {
-                    console.log(data.data.accessToken);
-                    if (data.data.accessToken) {
-                        // console.log(data.data.accessToken);
-                        localStorage.setItem('access-token', data.data.accessToken)
-                        setToken(data.data.accessToken)
+                    console.log(data);
+                    if (data.accessToken) {
+                        localStorage.setItem('access-token', data.accessToken)
+                        setToken(data.accessToken)
                     }
                 })
         }

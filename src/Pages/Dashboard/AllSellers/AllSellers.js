@@ -12,7 +12,7 @@ const AllSellers = () => {
     const { data: sellers = [], isLoading, refetch } = useQuery({
         queryKey: ['sellers'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/all-sellers')
+            const res = await fetch('https://phonsell-server-robiulalam76.vercel.app/all-sellers')
             const data = await res.json()
             return data
         }
@@ -22,7 +22,7 @@ const AllSellers = () => {
 
     // remove wishlist
     const handleRemoveSeller = (id) => {
-        fetch(`http://localhost:5000/all-sellers/${id}`, {
+        fetch(`https://phonsell-server-robiulalam76.vercel.app/all-sellers/${id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',
@@ -47,7 +47,7 @@ const AllSellers = () => {
 
     // handleVerify
     const handleVerify = (id) => {
-        fetch(`http://localhost:5000/all-sellers/${id}`, {
+        fetch(`https://phonsell-server-robiulalam76.vercel.app/all-sellers/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',

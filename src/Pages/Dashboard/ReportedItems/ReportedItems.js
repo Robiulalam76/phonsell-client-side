@@ -12,7 +12,7 @@ const ReportedItems = () => {
     const { data: reports = [], isLoading, refetch } = useQuery({
         queryKey: ['reports'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/reports')
+            const res = await fetch('https://phonsell-server-robiulalam76.vercel.app/reports')
             const data = await res.json()
             return data
         }
@@ -21,7 +21,7 @@ const ReportedItems = () => {
 
     // delete report product for user report
     const handleReportDelete = (id) => {
-        fetch(`http://localhost:5000/reports/${id}`, {
+        fetch(`https://phonsell-server-robiulalam76.vercel.app/reports/${id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',
@@ -46,7 +46,7 @@ const ReportedItems = () => {
 
     // delete product for report
     const handleProductDelete = (id) => {
-        fetch(`http://localhost:5000/products/${id}`, {
+        fetch(`https://phonsell-server-robiulalam76.vercel.app/products/${id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',
@@ -71,7 +71,7 @@ const ReportedItems = () => {
 
     // delete advertise product for report
     const handleDeleteAdvertiseProduct = id => {
-        fetch(`http://localhost:5000/advertiseProducts/${id}`, {
+        fetch(`https://phonsell-server-robiulalam76.vercel.app/advertiseProducts/${id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',

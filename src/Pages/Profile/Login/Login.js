@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Loader from '../../../Components/Loader';
 import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
 import useToken from '../../../Hooks/useToken';
 
@@ -39,7 +40,7 @@ const Login = () => {
         signupWithGoogle(googleProvider)
             .then(result => {
                 const userInfo = result.user
-                fetch(`http://localhost:5000/check-user?email=${userInfo.email}`)
+                fetch(`https://phonsell-server-robiulalam76.vercel.app/check-user?email=${userInfo.email}`)
                     .then(res => res.json())
                     .then(data => {
                         if (data.status === true) {
@@ -59,7 +60,6 @@ const Login = () => {
 
     const saveUser = (userInfo) => {
         toast.success('User Signup Successfully')
-        setLoginUserEmail(userInfo.email)
         const user = {
             name: userInfo.displayName,
             email: userInfo.email,
@@ -67,7 +67,7 @@ const Login = () => {
             verify: false,
             image: userInfo.photoURL
         }
-        fetch('http://localhost:5000/users', {
+        fetch('https://phonsell-server-robiulalam76.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -77,10 +77,14 @@ const Login = () => {
             .then(res => res.json())
             .then(data => {
                 // console.log(data);
+                setLoginUserEmail(userInfo.email)
             })
     }
     return (
         <section className="bg-white dark:bg-gray-900 pt-4 pb-12">
+            {
+                loading === true && <Loader></Loader>
+            }
             <div className="w-full md:w-[400px] flex items-center justify-center p-6 mx-auto shadow-md shadow-gray-600">
 
                 <form onSubmit={handleSubmit(handleLogin)} className="w-full max-w-md">

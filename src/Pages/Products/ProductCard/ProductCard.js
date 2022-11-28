@@ -26,7 +26,7 @@ const ProductCard = ({ product }) => {
 
     // load user
     useEffect(() => {
-        fetch(`http://localhost:5000/verify-users?email=${email}`)
+        fetch(`https://phonsell-server-robiulalam76.vercel.app/verify-users?email=${email}`)
             .then(res => res.json())
             .then(data => {
                 const sellerInfo = data.filter(seller => setSellerVerify(seller.verify))
@@ -38,7 +38,7 @@ const ProductCard = ({ product }) => {
     const { data: wishlist = [], refetch } = useQuery({
         queryKey: ['wishlist'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/wishlist')
+            const res = await fetch('https://phonsell-server-robiulalam76.vercel.app/wishlist')
             const data = await res.json()
             return data
         }
@@ -68,7 +68,7 @@ const ProductCard = ({ product }) => {
             description,
         }
 
-        fetch('http://localhost:5000/wishlist', {
+        fetch('https://phonsell-server-robiulalam76.vercel.app/wishlist', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -93,7 +93,7 @@ const ProductCard = ({ product }) => {
 
     // remove wishlist
     const handleRemoveWishlist = (id) => {
-        fetch(`http://localhost:5000/wishlist/${id}`, {
+        fetch(`https://phonsell-server-robiulalam76.vercel.app/wishlist/${id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',

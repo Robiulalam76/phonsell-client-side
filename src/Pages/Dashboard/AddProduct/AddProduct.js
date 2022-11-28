@@ -26,7 +26,7 @@ const AddProduct = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/users?email=${user?.email}`)
+        fetch(`https://phonsell-server-robiulalam76.vercel.app/users?email=${user?.email}`)
             .then(res => res.json())
             .then(data => {
                 serUserInfo(data)
@@ -71,7 +71,7 @@ const AddProduct = () => {
 
                     console.log(product);
 
-                    fetch('http://localhost:5000/products', {
+                    fetch('https://phonsell-server-robiulalam76.vercel.app/products', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',

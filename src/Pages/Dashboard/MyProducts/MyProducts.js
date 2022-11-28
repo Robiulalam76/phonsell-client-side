@@ -12,7 +12,7 @@ const MyProducts = () => {
     const { data: myProducts = [], isLoading, refetch } = useQuery({
         queryKey: ['myProducts'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/my-products?email=${user?.email}`)
+            const res = await fetch(`https://phonsell-server-robiulalam76.vercel.app/my-products?email=${user?.email}`)
             const data = await res.json()
             return data
         }
@@ -20,7 +20,7 @@ const MyProducts = () => {
 
     // remove Product
     const handleRemoveProduct = (id) => {
-        fetch(`http://localhost:5000/products/${id}`, {
+        fetch(`https://phonsell-server-robiulalam76.vercel.app/products/${id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',
@@ -46,7 +46,7 @@ const MyProducts = () => {
     // if product advertise then delete
     const handleAdvertiseDelete = (id) => {
         console.log(id);
-        fetch(`http://localhost:5000/advertiseProducts/${id}`, {
+        fetch(`https://phonsell-server-robiulalam76.vercel.app/advertiseProducts/${id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',

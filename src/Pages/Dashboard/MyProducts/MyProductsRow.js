@@ -9,7 +9,7 @@ const MyProductsRow = ({ product, handleRemoveProduct }) => {
     const [advertisePermit, setAdvertisePermit] = useState(true)
 
     const refetch = () => {
-        fetch(`http://localhost:5000/advertiseProducts/${_id}`)
+        fetch(`https://phonsell-server-robiulalam76.vercel.app/advertiseProducts/${_id}`)
             .then(res => res.json())
             .then(data => {
                 if (data.serviceId === _id) {
@@ -20,7 +20,7 @@ const MyProductsRow = ({ product, handleRemoveProduct }) => {
 
     // data fetch with
     useEffect(() => {
-        fetch(`http://localhost:5000/advertiseProducts/${_id}`)
+        fetch(`https://phonsell-server-robiulalam76.vercel.app/advertiseProducts/${_id}`)
             .then(res => res.json())
             .then(data => {
                 if (data.serviceId === _id) {
@@ -37,7 +37,7 @@ const MyProductsRow = ({ product, handleRemoveProduct }) => {
         }
 
         // console.log(advertiseProduct);
-        fetch('http://localhost:5000/advertise', {
+        fetch('https://phonsell-server-robiulalam76.vercel.app/advertise', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

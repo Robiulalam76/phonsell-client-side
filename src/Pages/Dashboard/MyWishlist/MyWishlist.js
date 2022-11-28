@@ -12,7 +12,7 @@ const MyWishlist = () => {
     const { data: wishlist = [], isLoading, refetch } = useQuery({
         queryKey: ['wishlist'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/my-wishlist?email=${user?.email}`)
+            const res = await fetch(`https://phonsell-server-robiulalam76.vercel.app/my-wishlist?email=${user?.email}`)
             const data = await res.json()
             return data
         }
@@ -20,7 +20,7 @@ const MyWishlist = () => {
 
     // remove wishlist
     const handleRemoveWishlist = (id) => {
-        fetch(`http://localhost:5000/wishlist/${id}`, {
+        fetch(`https://phonsell-server-robiulalam76.vercel.app/wishlist/${id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',
@@ -48,8 +48,8 @@ const MyWishlist = () => {
     // console.log(wishlist);
 
     return (
-        <div className="bg-white pb-12 px-6 w-full mx-auto">
-            <div className="flex justify-center mx-auto bg-white">
+        <div className="bg-white dark:bg-gray-800 min-h-screen py-12 px-6">
+            <div className="overflow-x-auto relative w-full md:max-w-[700px] mx-auto">
 
                 <div className="p-3">
                     <header className="py-4 border-b border-gray-100">
