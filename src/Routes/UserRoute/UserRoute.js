@@ -8,7 +8,7 @@ const UserRoute = ({ children }) => {
     const { user, loading } = useContext(AuthContext)
     const [isUser, isLoading] = useUser(user?.email)
     const location = useLocation()
-    console.log(isUser);
+    // console.log(isUser);
 
     if (loading || isLoading) {
         return <div className='w-full h-full flex justify-center items-center'><SyncLoader color="#36d7b7" /></div>

@@ -14,7 +14,7 @@ const AdvertiseProductCard = ({ advertiseProduct }) => {
     const [showModal, setShowModal] = useState(false)
     const [sellerVerify, setSellerVerify] = useState({})
 
-    console.log(advertiseProduct);
+    // console.log(advertiseProduct);
 
     // order modal close 
     const closeModal = (data) => {

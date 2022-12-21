@@ -22,7 +22,7 @@ const CheckoutForm = ({ order }) => {
     // console.log(serviceId);
     // sound
     function playSound() {
-        console.log('object');
+        // console.log('object');
         const audio = new Audio('https://cdn.pixabay.com/download/audio/2021/08/04/audio_0625c1539c.mp3?filename=success-1-6297.mp3');
         audio.play();
     }
@@ -109,7 +109,7 @@ const CheckoutForm = ({ order }) => {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
+                // console.log(data);
                 setClientSecret(data.clientSecret)
             });
     }, [price]);

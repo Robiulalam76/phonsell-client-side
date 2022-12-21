@@ -62,7 +62,7 @@ const MyProducts = () => {
             })
             .then(data => {
                 if (data.deletedCount > 0) {
-                    console.log(data);
+                    // console.log(data);
                 }
             })
     }

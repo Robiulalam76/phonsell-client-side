@@ -7,7 +7,7 @@ import close from '../../../assests/icon/close.png'
 const AdvertiseBookNowModal = ({ modalData, closeModal }) => {
     const { user, logout } = useContext(AuthContext)
     const { serviceId, time, seller, verify, email: sellerEmail, categoryId, brand, name: serviceName, image, price, location: serviceLocation, sold, condition, used, originalPrice, model, authenticity, features, description, } = modalData
-    console.log(modalData);
+    // console.log(modalData);
 
 
     // sound

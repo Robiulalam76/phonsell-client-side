@@ -69,7 +69,7 @@ const AddProduct = () => {
                         seller: userInfo?.name,
                     }
 
-                    console.log(product);
+                    // console.log(product);
 
                     fetch('https://phonsell-server.vercel.app/products', {
                         method: 'POST',
@@ -87,7 +87,7 @@ const AddProduct = () => {
                             return res.json()
                         })
                         .then(data => {
-                            console.log(data);
+                            // console.log(data);
                             if (data.acknowledged) {
                                 toast.success('Product Add Successfully')
                                 navigate('/dashboard/my-products')

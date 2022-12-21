@@ -7,12 +7,12 @@ import close from '../../../assests/icon/close.png'
 const BookNowModal = ({ modalData, closeModal }) => {
     const { user, logout } = useContext(AuthContext)
     const { _id, time, seller, verify, email: sellerEmail, categoryId, brand, name: serviceName, image, price, location: serviceLocation, sold, condition, used, originalPrice, model, authenticity, features, description, } = modalData
-    console.log(modalData);
+    // console.log(modalData);
 
 
     // sound
     function playSound() {
-        console.log('object');
+        // console.log('object');
         const audio = new Audio('https://cdn.pixabay.com/download/audio/2021/08/04/audio_0625c1539c.mp3?filename=success-1-6297.mp3');
         audio.play();
     }

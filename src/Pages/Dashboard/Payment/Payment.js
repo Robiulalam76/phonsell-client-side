@@ -5,7 +5,7 @@ import { useLoaderData, useNavigation } from 'react-router-dom';
 import CheckoutForm from './CheckoutForm';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK);
-console.log(stripePromise);
+// console.log(stripePromise);
 
 const Payment = () => {
     const order = useLoaderData();
