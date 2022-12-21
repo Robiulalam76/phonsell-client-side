@@ -10,14 +10,16 @@ console.log(stripePromise);
 const Payment = () => {
     const order = useLoaderData();
     const navigation = useNavigation();
-    const { _id, serviceId, serviceName, serviceLocation, brand, image, price, originalPrice } = order;
+    const { _id, serviceId, name, email, brand, serviceName, originalPrice, serviceLocation, image, price } = order;
     // console.log(order);
     return (
-        <div className='bg-blue-50 p-8 w-full'>
-            <h1 className='font-bold text-xl md:text-3xl text-blue-600 text-center'>Making {serviceName} Payments</h1>
-            <p className='text-left text-xl'><small>Price: ${price}</small></p>
-            <p className='text-left text-xl'><small>Original Price: ${originalPrice}</small></p>
-            <p className='text-left text-xl'><small>Brand Name: ${brand}</small></p>
+        <div className='bg-blue-50 mx-auto p-4'>
+            <div className='w-full md:w-fit mx-auto'>
+                <h1 className='font-bold text-xl md:text-3xl text-blue-600 text-center'>Making {serviceName} Payments</h1>
+                <p className='text-left text-xl'><small>Price: ${price}</small></p>
+                <p className='text-left text-xl'><small>Original Price: ${originalPrice}</small></p>
+                <p className='text-left text-xl'><small>Brand Name: ${brand}</small></p>
+            </div>
             <div className='w-full md:w-96 my-12 mx-auto'>
                 <Elements stripe={stripePromise}>
                     <CheckoutForm

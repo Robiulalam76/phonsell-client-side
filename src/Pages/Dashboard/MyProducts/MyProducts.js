@@ -12,7 +12,7 @@ const MyProducts = () => {
     const { data: myProducts = [], isLoading, refetch } = useQuery({
         queryKey: ['myProducts'],
         queryFn: async () => {
-            const res = await fetch(`https://phonsell-server-robiulalam76.vercel.app/my-products?email=${user?.email}`)
+            const res = await fetch(`https://phonsell-server.vercel.app/my-products?email=${user?.email}`)
             const data = await res.json()
             return data
         }
@@ -20,7 +20,7 @@ const MyProducts = () => {
 
     // remove Product
     const handleRemoveProduct = (id) => {
-        fetch(`https://phonsell-server-robiulalam76.vercel.app/products/${id}`, {
+        fetch(`https://phonsell-server.vercel.app/products/${id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',
@@ -46,7 +46,7 @@ const MyProducts = () => {
     // if product advertise then delete
     const handleAdvertiseDelete = (id) => {
         // console.log(id);
-        fetch(`https://phonsell-server-robiulalam76.vercel.app/advertiseProducts/${id}`, {
+        fetch(`https://phonsell-server.vercel.app/advertiseProducts/${id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',
@@ -73,17 +73,18 @@ const MyProducts = () => {
     }
 
     return (
-        <div className="bg-white pb-12 px-6 w-full mx-auto">
-            <div className="flex justify-center md:max-w-fit mx-auto bg-white">
+        <div className="bg-white dark:bg-gray-800 min-h-screen pb-12 px-6 w-full mx-auto">
+            <div className="flex overflow-x-auto justify-center md:max-w-fit mx-auto">
 
                 <div className="p-3">
                     <header className="py-4 border-b border-gray-100">
-                        <h2 className="font-semibold text-gray-800">My Products</h2>
+                        <h2 className="font-semibold text-gray-800 dark:text-white">My Products</h2>
                     </header>
-                    <div className="overflow-x-auto">
+                    <div className="overflow-x-auto md:overflow-hidden">
                         <table className="table-auto w-full">
-                            <thead className="text-xs font-semibold uppercase text-gray-900 bg-gray-50">
+                            <thead className="text-xs font-semibold uppercase text-gray-900 bg-white">
                                 <tr>
+
                                     <th className="p-2 whitespace-nowrap">
                                         <div className="font-semibold text-left">IMAGE</div>
                                     </th>
@@ -91,7 +92,7 @@ const MyProducts = () => {
                                         <div className="font-semibold text-left">NAME</div>
                                     </th>
                                     <th className="p-2 whitespace-nowrap">
-                                        <div className="font-semibold text-left">PRICE</div>
+                                        <div className="font-semibold text-left">ORIGINAL</div>
                                     </th>
                                     <th className="p-2 whitespace-nowrap">
                                         <div className="font-semibold text-left">ORIGINAL</div>
@@ -110,7 +111,7 @@ const MyProducts = () => {
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody className="text-sm divide-y divide-gray-100">
+                            <tbody className="text-sm divide-y dark:text-white">
                                 {
                                     myProducts.map(product => <MyProductsRow
                                         key={product._id}
@@ -123,7 +124,7 @@ const MyProducts = () => {
                     </div>
                     {
                         myProducts.length === 0 &&
-                        <h1 className='text-center text-xl mt-3 font-bold'>No Your Products</h1>
+                        <h1 className='text-center text-xl mt-3 font-bold text-gray-900 dark:text-white'>No Your Products</h1>
                     }
                 </div>
             </div>

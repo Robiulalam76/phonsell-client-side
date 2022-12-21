@@ -10,6 +10,8 @@ import useToken from '../../../Hooks/useToken';
 const Login = () => {
     const { user, loading, loginWithEmailPassword, signupWithGoogle } = useContext(AuthContext)
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
+    const [errorPassword, setPasswordError] = useState("")
+    // const [offLoading, setOffLoading] = useState(true)
     const location = useLocation()
     const navigate = useNavigate()
     const googleProvider = new GoogleAuthProvider()
@@ -31,7 +33,18 @@ const Login = () => {
                 reset()
 
             })
-            .catch(error => console.error(error))
+            .catch(error => {
+                // const errorCode = error.code;
+                const errorMessage = error.message;
+                if (errorMessage === "Firebase: Error (auth/wrong-password).") {
+                    setPasswordError("Password is Wrong Try again")
+                    // setOffLoading(false)
+                }
+                if (errorMessage === "Firebase: Error (auth/user-not-found).") {
+                    setPasswordError('User is Not Found')
+                    // setOffLoading(false)
+                }
+            })
     }
 
 
@@ -40,7 +53,7 @@ const Login = () => {
         signupWithGoogle(googleProvider)
             .then(result => {
                 const userInfo = result.user
-                fetch(`https://phonsell-server-robiulalam76.vercel.app/check-user?email=${userInfo.email}`)
+                fetch(`https://phonsell-server.vercel.app/check-user?email=${userInfo.email}`)
                     .then(res => res.json())
                     .then(data => {
                         if (data.status === true) {
@@ -57,7 +70,7 @@ const Login = () => {
             .catch(err => console.log(err))
     }
 
-
+    // console.log(errorPassword);
     const saveUser = (userInfo) => {
         toast.success('User Signup Successfully')
         const user = {
@@ -67,7 +80,7 @@ const Login = () => {
             verify: false,
             image: userInfo.photoURL
         }
-        fetch('https://phonsell-server-robiulalam76.vercel.app/users', {
+        fetch('https://phonsell-server.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -83,7 +96,7 @@ const Login = () => {
     return (
         <section className="bg-white dark:bg-gray-900 pt-4 pb-12">
             {
-                loading === true && <Loader></Loader>
+                loading && <Loader></Loader>
             }
             <div className="w-full md:w-[400px] flex items-center justify-center p-6 mx-auto shadow-md shadow-gray-600">
 
@@ -117,6 +130,7 @@ const Login = () => {
                             type="password" name='password' className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Password" required />
                     </div>
                     {errors.password && <p className='text-red-600'>{errors.password.message}</p>}
+                    {errorPassword && <p className='text-red-600'>{errorPassword}</p>}
 
 
 

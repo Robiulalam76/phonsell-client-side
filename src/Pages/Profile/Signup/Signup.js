@@ -10,6 +10,8 @@ import Loader from '../../../Components/Loader';
 const Signup = () => {
     const { user, loading, signupWithEmailPassword, updateUser, signupWithGoogle } = useContext(AuthContext)
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
+    const [errorPassword, setPasswordError] = useState("")
+    // const [offLoading, setOffLoading] = useState(true)
     const location = useLocation()
     const navigate = useNavigate()
     const googleProvider = new GoogleAuthProvider()
@@ -31,7 +33,13 @@ const Signup = () => {
                 const user = result.user
                 saveUser(data.name, data.email, data.role, data.image[0])
             })
-            .catch(error => console.error(error))
+            .catch(error => {
+                const errorMessage = error.message;
+                if (errorMessage === 'Firebase: Error (auth/email-already-in-use).') {
+                    setPasswordError('You Have a Already Account')
+                    // setOffLoading(false)
+                }
+            })
 
     }
 
@@ -56,7 +64,7 @@ const Signup = () => {
                         verify: false,
                         image
                     }
-                    fetch('https://phonsell-server-robiulalam76.vercel.app/users', {
+                    fetch('https://phonsell-server.vercel.app/users', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json'
@@ -93,7 +101,7 @@ const Signup = () => {
         signupWithGoogle(googleProvider)
             .then(result => {
                 const userInfo = result.user
-                fetch(`https://phonsell-server-robiulalam76.vercel.app/check-user?email=${userInfo.email}`)
+                fetch(`https://phonsell-server.vercel.app/check-user?email=${userInfo.email}`)
                     .then(res => res.json())
                     .then(data => {
 
@@ -119,7 +127,7 @@ const Signup = () => {
             verify: false,
             image: userInfo.photoURL
         }
-        fetch('https://phonsell-server-robiulalam76.vercel.app/users', {
+        fetch('https://phonsell-server.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -137,7 +145,7 @@ const Signup = () => {
 
         <section className="bg-white dark:bg-gray-900 pb-12 pt-4">
             {
-                loading === true && <Loader></Loader>
+                loading && <Loader></Loader>
             }
             <div className="w-full md:w-[400px] flex items-center justify-center p-8 mx-auto shadow-md shadow-gray-600">
 
@@ -214,6 +222,7 @@ const Signup = () => {
                             id="dropzone-file" name='image' type="file" className="dark:text-gray-400" required />
                     </label>
                     {errors.image && <p className='text-red-600'>{errors.image.message}</p>}
+                    {errorPassword && <p className='text-red-600'>{errorPassword}</p>}
 
                     <div className="mt-6">
                         <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">

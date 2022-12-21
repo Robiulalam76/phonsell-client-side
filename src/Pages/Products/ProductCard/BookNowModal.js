@@ -37,7 +37,7 @@ const BookNowModal = ({ modalData, closeModal }) => {
             categoryId, condition,
             used, originalPrice, model, authenticity, features, description
         }
-        fetch('https://phonsell-server-robiulalam76.vercel.app/orders', {
+        fetch('http://localhost:5000/orders', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

@@ -32,7 +32,7 @@ const router = createBrowserRouter([
             { path: '/home', element: <Home></Home> },
             {
                 path: '/categories/:id',
-                loader: ({ params }) => fetch(`https://phonsell-server-robiulalam76.vercel.app/categories/${params.id}`),
+                loader: ({ params }) => fetch(`https://phonsell-server.vercel.app/categories/${params.id}`),
                 element: <PriveteRoute><Products></Products></PriveteRoute>
             },
             { path: '/about', element: <About></About> },
@@ -54,7 +54,7 @@ const router = createBrowserRouter([
 
             {
                 path: '/dashboard/orders/payment/:id',
-                loader: ({ params }) => fetch(`https://phonsell-server-robiulalam76.vercel.app/orders/${params.id}`),
+                loader: ({ params }) => fetch(`https://phonsell-server.vercel.app/orders/${params.id}`),
                 element: <UserRoute><Payment></Payment></UserRoute>
             },
 

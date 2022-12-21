@@ -9,7 +9,7 @@ const MyProductsRow = ({ product, handleRemoveProduct }) => {
     const [advertisePermit, setAdvertisePermit] = useState(true)
 
     const refetch = () => {
-        fetch(`https://phonsell-server-robiulalam76.vercel.app/advertiseProducts/${_id}`)
+        fetch(`https://phonsell-server.vercel.app/advertiseProducts/${_id}`)
             .then(res => res.json())
             .then(data => {
                 if (data.serviceId === _id) {
@@ -20,7 +20,7 @@ const MyProductsRow = ({ product, handleRemoveProduct }) => {
 
     // data fetch with
     useEffect(() => {
-        fetch(`https://phonsell-server-robiulalam76.vercel.app/advertiseProducts/${_id}`)
+        fetch(`https://phonsell-server.vercel.app/advertiseProducts/${_id}`)
             .then(res => res.json())
             .then(data => {
                 if (data.serviceId === _id) {
@@ -37,7 +37,7 @@ const MyProductsRow = ({ product, handleRemoveProduct }) => {
         }
 
         // console.log(advertiseProduct);
-        fetch('https://phonsell-server-robiulalam76.vercel.app/advertise', {
+        fetch('https://phonsell-server.vercel.app/advertise', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -77,23 +77,35 @@ const MyProductsRow = ({ product, handleRemoveProduct }) => {
                 <div className="text-left">{location}</div>
             </td>
             <td className="p-2 whitespace-nowrap">
-                <div className="text-left">{sold}</div>
+                {
+                    sold === 'Unavailable' ?
+                        <div className="text-left text-gray-600">Sold</div>
+                        :
+                        <div className="text-left">Available</div>
+                }
             </td>
             <td className="p-2 whitespace-nowrap">
-                <Link className="text-left">
-                    {advertisePermit ?
-                        <button onClick={() => handleAdvertise()} className='py-1 px-3 bg-red-600 hover:bg-red-700 rounded-md text-white'>Advertise</button>
+                {
+                    sold === 'Unavailable' ?
+                        <Link>
+                            <button disabled className='py-1 px-2 bg-yellow-700 rounded-md text-white'>No Access</button>
+                        </Link>
                         :
-                        <button disabled={!advertisePermit} className='py-1 px-2 bg-gray-500 rounded-md text-white'>Advertised</button>
-                    }
-                </Link>
+                        <Link className="text-left">
+                            {advertisePermit ?
+                                <button onClick={() => handleAdvertise()} className='py-1 px-3 bg-red-600 hover:bg-red-700 rounded-md text-white'>Advertise</button>
+                                :
+                                <button disabled={!advertisePermit} className='py-1 px-2 bg-gray-500 rounded-md text-white'>Advertised</button>
+                            }
+                        </Link>
+                }
             </td>
             <td className="p-2 whitespace-nowrap">
                 <Link className="text-left">
                     <button onClick={() => handleRemoveProduct(_id)} className='py-1 px-3 bg-red-600 hover:bg-red-700 rounded-md text-white'>Delete</button>
                 </Link>
             </td>
-        </tr>
+        </tr >
     );
 };
 

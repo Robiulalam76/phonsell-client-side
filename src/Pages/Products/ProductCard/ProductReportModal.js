@@ -31,7 +31,7 @@ const ProductReportModal = ({ modalData, closeModal }) => {
             model, authenticity, features, description, verify, time
         }
 
-        fetch('https://phonsell-server-robiulalam76.vercel.app/reports', {
+        fetch('https://phonsell-server.vercel.app/reports', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

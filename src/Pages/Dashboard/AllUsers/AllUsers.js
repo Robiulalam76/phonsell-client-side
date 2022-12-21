@@ -12,7 +12,7 @@ const AllUsers = () => {
     const { data: users = [], isLoading, refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await fetch('https://phonsell-server-robiulalam76.vercel.app/all-users')
+            const res = await fetch('https://phonsell-server.vercel.app/all-users')
             const data = await res.json()
             return data
         }
@@ -20,7 +20,7 @@ const AllUsers = () => {
 
     // remove wishlist
     const handleRemoveUser = (id) => {
-        fetch(`https://phonsell-server-robiulalam76.vercel.app/all-users/${id}`, {
+        fetch(`https://phonsell-server.vercel.app/all-users/${id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',

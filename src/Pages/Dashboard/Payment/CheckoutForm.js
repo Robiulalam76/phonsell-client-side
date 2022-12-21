@@ -2,6 +2,7 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Navigate, useNavigate } from 'react-router-dom';
+import Loader from '../../../Components/Loader';
 import { AuthContext } from '../../../ContextAPI/AuthProvider/AuthProvider';
 
 const CheckoutForm = ({ order }) => {
@@ -11,6 +12,7 @@ const CheckoutForm = ({ order }) => {
     const [processing, setProcessing] = useState(false);
     const [transactionId, setTransactionId] = useState('');
     const [clientSecret, setClientSecret] = useState("");
+    const [paymentSpinner, setPaymentSpinner] = useState(false)
     const navigate = useNavigate()
 
     const stripe = useStripe();
@@ -27,7 +29,7 @@ const CheckoutForm = ({ order }) => {
 
 
     const handleUpdateSalesStatus = () => {
-        fetch(`https://phonsell-server-robiulalam76.vercel.app/my-orders/${serviceId}`, {
+        fetch(`https://phonsell-server.vercel.app/my-orders/${serviceId}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',
@@ -44,14 +46,15 @@ const CheckoutForm = ({ order }) => {
             })
             .then(data => {
                 if (data.acknowledged) {
-                    handleDeleteProduct(serviceId)
+                    handleUpdateProduct(serviceId)
                 }
             })
     }
+    // console.log(serviceId);
 
-    const handleDeleteProduct = (serviceId) => {
-        fetch(`https://phonsell-server-robiulalam76.vercel.app/products/${serviceId}`, {
-            method: 'DELETE',
+    const handleUpdateProduct = (serviceId) => {
+        fetch(`https://phonsell-server.vercel.app/products/${serviceId}`, {
+            method: 'PUT',
             headers: {
                 'content-type': 'application/json',
                 authorization: `bearer ${localStorage.getItem('access-token')}`
@@ -65,15 +68,38 @@ const CheckoutForm = ({ order }) => {
                 return res.json()
             })
             .then(data => {
+
                 //    console.log(data);
             })
     }
 
 
+    const handleUpdateAdvertiseProduct = (serviceId) => {
+        fetch(`https://phonsell-server.vercel.app/advertiseProducts/${serviceId}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('access-token')}`
+            }
+        })
+            .then(res => {
+                if (res.status === 403 || res.status === 401) {
+                    toast.error('User Unuthorized Access')
+                    return logout()
+                }
+                return res.json()
+            })
+            .then(data => {
+                // console.log(data);
+            })
+    }
+
+    // console.log(serviceId);
+
 
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
-        fetch("https://phonsell-server-robiulalam76.vercel.app/create-payment-intent", {
+        fetch("https://phonsell-server.vercel.app/create-payment-intent", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -91,6 +117,7 @@ const CheckoutForm = ({ order }) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setPaymentSpinner(true)
 
         if (!stripe || !elements) {
             return
@@ -141,7 +168,7 @@ const CheckoutForm = ({ order }) => {
                 email,
                 orderId: serviceId
             }
-            fetch('https://phonsell-server-robiulalam76.vercel.app/payments', {
+            fetch('https://phonsell-server.vercel.app/payments', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',
@@ -153,11 +180,13 @@ const CheckoutForm = ({ order }) => {
                 .then(data => {
                     // console.log(data);
                     if (data.acknowledged) {
+                        setPaymentSpinner(false)
                         toast.success('Congrats! Your Payment Successfull')
                         setSuccess('Congrats! your payment completed');
                         setTransactionId(paymentIntent.id);
                         handleUpdateSalesStatus()
                         playSound()
+                        handleUpdateAdvertiseProduct(serviceId)
                         navigate('/dashboard/my-orders')
                     }
                 })
@@ -169,6 +198,9 @@ const CheckoutForm = ({ order }) => {
 
     return (
         <>
+            {
+                paymentSpinner === true && <Loader></Loader>
+            }
             <form className='bg-blue-100 p-8 rounded-md' onSubmit={handleSubmit}>
                 <CardElement
                     options={{

@@ -12,7 +12,7 @@ const MyWishlist = () => {
     const { data: wishlist = [], isLoading, refetch } = useQuery({
         queryKey: ['wishlist'],
         queryFn: async () => {
-            const res = await fetch(`https://phonsell-server-robiulalam76.vercel.app/my-wishlist?email=${user?.email}`)
+            const res = await fetch(`https://phonsell-server.vercel.app/my-wishlist?email=${user?.email}`)
             const data = await res.json()
             return data
         }
@@ -20,7 +20,7 @@ const MyWishlist = () => {
 
     // remove wishlist
     const handleRemoveWishlist = (id) => {
-        fetch(`https://phonsell-server-robiulalam76.vercel.app/wishlist/${id}`, {
+        fetch(`https://phonsell-server.vercel.app/wishlist/${id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',
@@ -48,16 +48,16 @@ const MyWishlist = () => {
     // console.log(wishlist);
 
     return (
-        <div className="bg-white dark:bg-gray-200 min-h-screen py-12 px-6">
-            <div className="overflow-x-auto relative w-full md:max-w-fit mx-auto">
+        <div className="bg-white dark:bg-gray-800 min-h-screen pb-12 px-6 w-full mx-auto">
+            <div className="flex overflow-x-auto justify-center md:max-w-fit mx-auto">
 
                 <div className="p-3">
                     <header className="py-4 border-b border-gray-100">
-                        <h2 className="font-semibold text-gray-800">My Wishlist</h2>
+                        <h2 className="font-semibold text-gray-800 dark:text-white">My Wishlist</h2>
                     </header>
                     <div className="overflow-x-auto">
                         <table className="table-auto w-full">
-                            <thead className="text-xs font-semibold uppercase text-gray-900 bg-gray-50">
+                            <thead className="text-xs font-semibold uppercase text-gray-900 bg-white">
                                 <tr>
                                     <th className="p-2 whitespace-nowrap">
                                         <div className="font-semibold text-left">IMAGE</div>
@@ -82,7 +82,7 @@ const MyWishlist = () => {
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody className="text-sm divide-y divide-gray-100">
+                            <tbody className="text-sm divide-y dark:text-white">
                                 {
                                     wishlist.map(w => <MyWishlistRow
                                         key={w._id}
@@ -95,7 +95,7 @@ const MyWishlist = () => {
                     </div>
                     {
                         wishlist.length === 0 &&
-                        <h1 className='text-center text-xl mt-3 font-bold'>No Wishlist Your Product</h1>
+                        <h1 className='text-center text-xl mt-3 dark:text-white text-gray-900 font-bold'>No Wishlist Your Product</h1>
                     }
                 </div>
             </div>

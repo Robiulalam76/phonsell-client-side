@@ -14,6 +14,8 @@ const AdvertiseProductCard = ({ advertiseProduct }) => {
     const [showModal, setShowModal] = useState(false)
     const [sellerVerify, setSellerVerify] = useState({})
 
+    console.log(advertiseProduct);
+
     // order modal close 
     const closeModal = (data) => {
         if (data === null) {
@@ -26,7 +28,7 @@ const AdvertiseProductCard = ({ advertiseProduct }) => {
 
     // load user
     useEffect(() => {
-        fetch(`https://phonsell-server-robiulalam76.vercel.app/verify-users?email=${email}`)
+        fetch(`https://phonsell-server.vercel.app/verify-users?email=${email}`)
             .then(res => res.json())
             .then(data => {
                 const sellerInfo = data.filter(seller => setSellerVerify(seller.verify))
@@ -38,7 +40,7 @@ const AdvertiseProductCard = ({ advertiseProduct }) => {
     const { data: wishlist = [], refetch } = useQuery({
         queryKey: ['wishlist'],
         queryFn: async () => {
-            const res = await fetch('https://phonsell-server-robiulalam76.vercel.app/wishlist')
+            const res = await fetch('https://phonsell-server.vercel.app/wishlist')
             const data = await res.json()
             return data
         }
@@ -67,7 +69,7 @@ const AdvertiseProductCard = ({ advertiseProduct }) => {
             features,
             description,
         }
-        fetch('https://phonsell-server-robiulalam76.vercel.app/wishlist', {
+        fetch('https://phonsell-server.vercel.app/wishlist', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -92,7 +94,7 @@ const AdvertiseProductCard = ({ advertiseProduct }) => {
 
     // remove wishlist
     const handleRemoveWishlist = (id) => {
-        fetch(`https://phonsell-server-robiulalam76.vercel.app/wishlist/${id}`, {
+        fetch(`https://phonsell-server.vercel.app/wishlist/${id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',

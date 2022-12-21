@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 const useUser = (email) => {
     const [isUser, setIsUser] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
-    console.log(isUser);
+    // console.log(isUser);
     useEffect(() => {
         if (email) {
-            fetch(`https://phonsell-server-robiulalam76.vercel.app/users/user/${email}`)
+            fetch(`https://phonsell-server.vercel.app/users/user/${email}`)
                 .then(res => res.json())
                 .then(data => {
                     // console.log(data);
@@ -15,7 +15,7 @@ const useUser = (email) => {
                 })
         }
     }, [email])
-    console.log(isUser);
+    // console.log(isUser);
     return [isUser, isLoading]
 };
 

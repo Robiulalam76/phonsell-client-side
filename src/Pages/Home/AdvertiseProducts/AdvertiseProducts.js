@@ -8,7 +8,7 @@ const AdvertiseProducts = () => {
 
     // data fetch with axios
     useEffect(() => {
-        axios.get('https://phonsell-server-robiulalam76.vercel.app/advertiseProducts')
+        axios.get('https://phonsell-server.vercel.app/advertiseProducts')
             .then(data => setAdvertiseProducts(data.data))
     }, [])
 
